@@ -1,0 +1,89 @@
+/*
+ * HummingDroid, Android QuadCopter Controller
+ * Copyright (C) 2013 Cedric Priscal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// To build Communication.java, you need Protobuf compiler and
+// type this command from the project root directory:
+
+// For Java
+// protoc --java_out=src src/org/hummingdroid/Communication.proto
+
+// For C++
+// protoc --cpp_out=. Communication.proto
+
+option optimize_for = LITE_RUNTIME;
+
+package org.hummingdroid;
+
+message Attitude {
+	required float altitude = 1; // Altitude from ground in meters
+	required float roll = 2; // Roll in radians
+	required float pitch = 3; // Pitch in radians
+	required float yaw_rate = 4; // Yaw rate in radians/second
+}
+
+message MotorsControl {
+	required float altitude_throttle = 1; // Altitude throttle
+	required float roll_throttle = 2; // Roll angular throttle
+	required float pitch_throttle = 3; // Pitch angular throttle
+	required float yaw_throttle = 4; // Yaw angular throttle
+}
+
+message PID {
+	required float Kp = 1; // proportional factor
+	required float Ki = 2; // integral factor
+	required float Kd = 3; // derivative factor
+	required float Ko = 4; // offset
+}
+
+// Command packet sent from ground to air.
+message CommandPacket {
+
+	message ControllerConfig {
+		required PID altitude_pid = 1;
+		required PID roll_pid = 2;
+		required PID pitch_pid = 3;
+		required PID yaw_rate_pid = 4;
+		optional float max_inclinaison = 5;
+		optional float max_altitude = 6;
+		optional float max_yaw_rate = 7;
+	}
+
+	message TelemetryConfig {
+		required string host = 1;
+		required int32 port = 2;
+		required bool commandEnabled = 3;
+		required bool attitudeEnabled = 4;
+		required bool controlEnabled = 5;
+	}
+
+	message SensorsConfig {
+		required float accel_lowpass_constant = 1;
+	}
+
+	optional Attitude 			command = 1;
+	optional ControllerConfig	controller_config = 2;
+	optional TelemetryConfig 	telemetry_config = 3;
+	optional SensorsConfig		sensors_config = 4;
+}
+
+// Telemetry packet sent from air to ground. 
+message TelemetryPacket {
+	optional Attitude		command = 1; 
+	optional Attitude		attitude = 2;
+	optional MotorsControl	control = 3;
+}
