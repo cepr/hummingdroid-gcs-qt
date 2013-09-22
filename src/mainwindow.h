@@ -46,6 +46,8 @@ public slots:
     void onJoyAxisChanged(qint64 timestamp, int axis, float value);
     void onJoyButtonPressed(qint64 timestamp, int button);
     void onJoyButtonReleased(qint64 timestamp, int button);
+    void restoreConfig();
+    void saveConfig();
 };
 
 #endif // MAINWINDOW_H

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDateTime>
+#include <QSettings>
 
 #define PORT 49152
 
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     emergency(false)
 {
     ui->setupUi(this);
+    restoreConfig();
     udpSocket.bind(PORT);
     joystick.open();
     connect(&udpSocket, SIGNAL(readyRead()),
@@ -22,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onJoyButtonPressed(qint64, int)));
     connect(&joystick, SIGNAL(onJoyButtonReleased(qint64, int)),
             this, SLOT(onJoyButtonReleased(qint64, int)));
+    connect(ui->action_Restore, SIGNAL(triggered()),
+            this, SLOT(restoreConfig()));
+    connect(ui->action_Save, SIGNAL(triggered()),
+            this, SLOT(saveConfig()));
     // Sending command every 20ms
     command_timer_id = startTimer(20);
     // Sending configuration every second
@@ -212,14 +218,14 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
         break;
     }
     case 0:
-        ui->roll_command->setText(QString::number(value));
-        ui->roll_graph->set(COMMAND, value);
-        attitude->set_roll(value);
+        ui->roll_command->setText(QString::number(value * .25));
+        ui->roll_graph->set(COMMAND, value * .25);
+        attitude->set_roll(value * .25);
         break;
     case 1:
-        ui->pitch_command->setText(QString::number(value));
-        ui->pitch_graph->set(COMMAND, value);
-        attitude->set_pitch(value);
+        ui->pitch_command->setText(QString::number(value * .25));
+        ui->pitch_graph->set(COMMAND, value * .25);
+        attitude->set_pitch(value * .25);
         break;
     case 3:
         ui->yaw_rate_command->setText(QString::number(value));
@@ -245,4 +251,78 @@ void MainWindow::onJoyButtonReleased(qint64 timestamp, int button)
 {
     (void)timestamp;
     (void)button;
+}
+
+void MainWindow::restoreConfig()
+{
+    QSettings settings;
+    QVariant v = settings.value("config");
+    if (v.type() == QVariant::ByteArray) {
+        const QByteArray & buffer = v.toByteArray();
+        config.ParseFromArray(buffer.data(), buffer.size());
+    } else {
+        // Apply default config
+        config.mutable_controller_config()->mutable_altitude_pid()->set_kp(0.f);
+        config.mutable_controller_config()->mutable_altitude_pid()->set_ki(0.f);
+        config.mutable_controller_config()->mutable_altitude_pid()->set_kd(0.f);
+        config.mutable_controller_config()->mutable_altitude_pid()->set_ko(0.f);
+        config.mutable_controller_config()->mutable_roll_pid()->set_kp(0.f);
+        config.mutable_controller_config()->mutable_roll_pid()->set_ki(0.f);
+        config.mutable_controller_config()->mutable_roll_pid()->set_kd(0.f);
+        config.mutable_controller_config()->mutable_roll_pid()->set_ko(0.f);
+        config.mutable_controller_config()->mutable_pitch_pid()->set_kp(0.f);
+        config.mutable_controller_config()->mutable_pitch_pid()->set_ki(0.f);
+        config.mutable_controller_config()->mutable_pitch_pid()->set_kd(0.f);
+        config.mutable_controller_config()->mutable_pitch_pid()->set_ko(0.f);
+        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_kp(0.f);
+        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_ki(0.f);
+        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_kd(0.f);
+        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_ko(0.f);
+    }
+    // Update UI
+    ui->altitude_kp->setText(QString::number(config.controller_config().altitude_pid().kp()));
+    ui->altitude_ki->setText(QString::number(config.controller_config().altitude_pid().ki()));
+    ui->altitude_kd->setText(QString::number(config.controller_config().altitude_pid().kd()));
+    ui->altitude_ko->setText(QString::number(config.controller_config().altitude_pid().ko()));
+    ui->roll_kp->setText(QString::number(config.controller_config().roll_pid().kp()));
+    ui->roll_ki->setText(QString::number(config.controller_config().roll_pid().ki()));
+    ui->roll_kd->setText(QString::number(config.controller_config().roll_pid().kd()));
+    ui->roll_ko->setText(QString::number(config.controller_config().roll_pid().ko()));
+    ui->pitch_kp->setText(QString::number(config.controller_config().pitch_pid().kp()));
+    ui->pitch_ki->setText(QString::number(config.controller_config().pitch_pid().ki()));
+    ui->pitch_kd->setText(QString::number(config.controller_config().pitch_pid().kd()));
+    ui->pitch_ko->setText(QString::number(config.controller_config().pitch_pid().ko()));
+    ui->yaw_rate_kp->setText(QString::number(config.controller_config().yaw_rate_pid().kp()));
+    ui->yaw_rate_ki->setText(QString::number(config.controller_config().yaw_rate_pid().ki()));
+    ui->yaw_rate_kd->setText(QString::number(config.controller_config().yaw_rate_pid().kd()));
+    ui->yaw_rate_ko->setText(QString::number(config.controller_config().yaw_rate_pid().ko()));
+    if (config.controller_config().has_max_altitude()) {
+        ui->altitude_max_enabled->setChecked(true);
+        ui->altitude_max->setText(QString::number(config.controller_config().max_altitude()));
+    } else {
+        ui->altitude_max_enabled->setChecked(false);
+        ui->altitude_max->setText("");
+    }
+    if (config.controller_config().has_max_inclinaison()) {
+        ui->roll_max_enabled->setChecked(true);
+        ui->roll_max->setText(QString::number(config.controller_config().max_inclinaison()));
+    } else {
+        ui->roll_max_enabled->setChecked(false);
+        ui->roll_max->setText("");
+    }
+    if (config.controller_config().has_max_yaw_rate()) {
+        ui->yaw_rate_max_enabled->setChecked(true);
+        ui->yaw_rate_max->setText(QString::number(config.controller_config().max_yaw_rate()));
+    } else {
+        ui->yaw_rate_max_enabled->setChecked(false);
+        ui->yaw_rate_max->setText("");
+    }
+}
+
+void MainWindow::saveConfig()
+{
+    QSettings settings;
+    QByteArray buffer(config.ByteSize(), 0);
+    config.SerializeToArray(buffer.data(), buffer.size());
+    settings.setValue("config", QVariant(buffer));
 }

@@ -906,6 +906,9 @@
     <addaction name="action_Connect"/>
     <addaction name="action_Disconnect"/>
     <addaction name="separator"/>
+    <addaction name="action_Save"/>
+    <addaction name="action_Restore"/>
+    <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -935,6 +938,16 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="action_Restore">
+   <property name="text">
+    <string>&amp;Restore</string>
    </property>
   </action>
  </widget>
@@ -985,5 +998,22 @@
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
