@@ -39,6 +39,7 @@ private:
     // Configuration packet
     CommandPacket config;
     int config_timer_id;
+    bool emergency;
 
 public slots:
     void readPendingDatagrams();

@@ -8,7 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     birdAddress("192.168.1.125"),
-    locale(QLocale::system())
+    locale(QLocale::system()),
+    emergency(false)
 {
     ui->setupUi(this);
     udpSocket.bind(PORT);
@@ -72,35 +73,65 @@ void MainWindow::timerEvent(QTimerEvent *event)
         // Send a config packet
         CommandPacket::ControllerConfig *cc =
                 config.mutable_controller_config();
-        {
-            PID *pid = cc->mutable_altitude_pid();
-            pid->set_kp(ui->altitude_kp->text().toFloat());
-            pid->set_ki(ui->altitude_ki->text().toFloat());
-            pid->set_kd(ui->altitude_kd->text().toFloat());
-            pid->set_ko(ui->altitude_ko->text().toFloat());
+        if (!emergency) {
+            {
+                PID *pid = cc->mutable_altitude_pid();
+                pid->set_kp(ui->altitude_kp->text().toFloat());
+                pid->set_ki(ui->altitude_ki->text().toFloat());
+                pid->set_kd(ui->altitude_kd->text().toFloat());
+                pid->set_ko(ui->altitude_ko->text().toFloat());
+            }
+            {
+                PID *pid = cc->mutable_roll_pid();
+                pid->set_kp(ui->roll_kp->text().toFloat());
+                pid->set_ki(ui->roll_ki->text().toFloat());
+                pid->set_kd(ui->roll_kd->text().toFloat());
+                pid->set_ko(ui->roll_ko->text().toFloat());
+            }
+            {
+                PID *pid = cc->mutable_pitch_pid();
+                pid->set_kp(ui->pitch_kp->text().toFloat());
+                pid->set_ki(ui->pitch_ki->text().toFloat());
+                pid->set_kd(ui->pitch_kd->text().toFloat());
+                pid->set_ko(ui->pitch_ko->text().toFloat());
+            }
+            {
+                PID *pid = cc->mutable_yaw_rate_pid();
+                pid->set_kp(ui->yaw_rate_kp->text().toFloat());
+                pid->set_ki(ui->yaw_rate_ki->text().toFloat());
+                pid->set_kd(ui->yaw_rate_kd->text().toFloat());
+                pid->set_ko(ui->yaw_rate_ko->text().toFloat());
+            }
+        } else {
+            {
+                PID *pid = cc->mutable_altitude_pid();
+                pid->set_kp(0.f);
+                pid->set_ki(0.f);
+                pid->set_kd(0.f);
+                pid->set_ko(0.f);
+            }
+            {
+                PID *pid = cc->mutable_roll_pid();
+                pid->set_kp(0.f);
+                pid->set_ki(0.f);
+                pid->set_kd(0.f);
+                pid->set_ko(0.f);
+            }
+            {
+                PID *pid = cc->mutable_pitch_pid();
+                pid->set_kp(0.f);
+                pid->set_ki(0.f);
+                pid->set_kd(0.f);
+                pid->set_ko(0.f);
+            }
+            {
+                PID *pid = cc->mutable_yaw_rate_pid();
+                pid->set_kp(0.f);
+                pid->set_ki(0.f);
+                pid->set_kd(0.f);
+                pid->set_ko(0.f);
+            }
         }
-        {
-            PID *pid = cc->mutable_roll_pid();
-            pid->set_kp(ui->roll_kp->text().toFloat());
-            pid->set_ki(ui->roll_ki->text().toFloat());
-            pid->set_kd(ui->roll_kd->text().toFloat());
-            pid->set_ko(ui->roll_ko->text().toFloat());
-        }
-        {
-            PID *pid = cc->mutable_pitch_pid();
-            pid->set_kp(ui->pitch_kp->text().toFloat());
-            pid->set_ki(ui->pitch_ki->text().toFloat());
-            pid->set_kd(ui->pitch_kd->text().toFloat());
-            pid->set_ko(ui->pitch_ko->text().toFloat());
-        }
-        {
-            PID *pid = cc->mutable_yaw_rate_pid();
-            pid->set_kp(ui->yaw_rate_kp->text().toFloat());
-            pid->set_ki(ui->yaw_rate_ki->text().toFloat());
-            pid->set_kd(ui->yaw_rate_kd->text().toFloat());
-            pid->set_ko(ui->yaw_rate_ko->text().toFloat());
-        }
-
         if (ui->roll_max_enabled->isChecked()) {
             cc->set_max_inclinaison(ui->roll_max->text().toFloat());
         }
@@ -194,8 +225,14 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
 
 void MainWindow::onJoyButtonPressed(qint64 timestamp, int button)
 {
+    if (button == 8) {
+        // Emergency stop
+        emergency = true;
+    } else if (button == 7) {
+        // Release emergency
+        emergency = false;
+    }
     (void)timestamp;
-    (void)button;
 }
 
 void MainWindow::onJoyButtonReleased(qint64 timestamp, int button)
