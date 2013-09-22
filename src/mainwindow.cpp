@@ -134,12 +134,18 @@ void MainWindow::timerEvent(QTimerEvent *event)
         }
         if (ui->roll_max_enabled->isChecked()) {
             cc->set_max_inclinaison(ui->roll_max->text().toFloat());
+        } else {
+            cc->clear_max_inclinaison();
         }
         if (ui->altitude_max_enabled->isChecked()) {
             cc->set_max_altitude(ui->altitude_max->text().toFloat());
+        } else {
+            cc->clear_max_altitude();
         }
         if (ui->yaw_rate_max_enabled->isChecked()) {
             cc->set_max_yaw_rate(ui->yaw_rate_max->text().toFloat());
+        } else {
+            cc->clear_max_yaw_rate();
         }
 
         // Telemetry config
