@@ -30,3 +30,6 @@ OTHER_FILES += \
 
 CONFIG += link_pkgconfig
 PKGCONFIG += protobuf-lite
+
+RESOURCES += \
+    resources.qrc
