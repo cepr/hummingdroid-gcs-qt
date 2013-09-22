@@ -170,7 +170,17 @@
          </layout>
         </item>
         <item>
-         <widget class="PlotArea" name="altitude_graph"/>
+         <widget class="PlotArea" name="altitude_graph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QFormLayout" name="altitude_value_form">
@@ -386,7 +396,17 @@
          </layout>
         </item>
         <item>
-         <widget class="PlotArea" name="roll_graph"/>
+         <widget class="PlotArea" name="roll_graph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QFormLayout" name="formLayout">
@@ -573,7 +593,17 @@
          </layout>
         </item>
         <item>
-         <widget class="PlotArea" name="pitch_graph"/>
+         <widget class="PlotArea" name="pitch_graph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QFormLayout" name="formLayout_2">
@@ -777,7 +807,17 @@
          </layout>
         </item>
         <item>
-         <widget class="PlotArea" name="yaw_rate_graph"/>
+         <widget class="PlotArea" name="yaw_rate_graph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QFormLayout" name="formLayout_3">
@@ -898,7 +938,7 @@
  <customwidgets>
   <customwidget>
    <class>PlotArea</class>
-   <extends>QGraphicsView</extends>
+   <extends>QLabel</extends>
    <header>plotarea.h</header>
   </customwidget>
  </customwidgets>
@@ -925,10 +965,6 @@
   <tabstop>yaw_rate_ko</tabstop>
   <tabstop>yaw_rate_max_enabled</tabstop>
   <tabstop>yaw_rate_max</tabstop>
-  <tabstop>altitude_graph</tabstop>
-  <tabstop>roll_graph</tabstop>
-  <tabstop>pitch_graph</tabstop>
-  <tabstop>yaw_rate_graph</tabstop>
   <tabstop>altitude_current</tabstop>
   <tabstop>altitude_command</tabstop>
   <tabstop>altitude_motors</tabstop>

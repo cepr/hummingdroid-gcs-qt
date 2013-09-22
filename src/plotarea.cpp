@@ -1,23 +1,54 @@
 #include "plotarea.h"
-#include <QDateTime>
+#include <QPixmap>
+#include <QPainter>
 
 PlotArea::PlotArea(QWidget *parent) :
-    QGraphicsView(parent), t0(0), history(30000)
+    QLabel(parent)
 {
-    setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    pens[CURRENT].setColor(QColor(255, 0, 0));
+    pens[CURRENT].setWidth(3);
+    pens[COMMAND].setColor(QColor(0, 255, 0));
+    pens[COMMAND].setWidth(3);
+    pens[MOTOR].setColor(QColor(0, 0, 255));
+    pens[MOTOR].setWidth(3);
+
+    memset(values, 0, sizeof(values));
+    pixmap = new QPixmap(width(), height());
+    pixmap->fill();
+    QPainter p(pixmap);
+    p.drawLine(0, height() / 2, width(), height() / 2);
+    setPixmap(*pixmap);
 
     // Start the scrolling timer
-    startTimer(50);
+    startTimer(25);
 }
 
 void PlotArea::timerEvent(QTimerEvent *)
 {
-    qint64 now = QDateTime::currentMSecsSinceEpoch() - t0;
-    //scene()->setSceneRect(now - history, -1, history, 2);
-    fitInView(now - history, -1, history, 2);
+    int w = pixmap->width();
+    int h = pixmap->height();
+    pixmap->scroll(-1, 0, pixmap->rect());
+    QPainter p(pixmap);
+    p.fillRect(w - 1, 0, 1, h, Qt::white);
+    for (int i = 0; i < GRAPH_COUNT; i++) {
+        p.setPen(pens[i]);
+        p.drawLine(w - 2, (1. - values[0][i]) * h / 2, w - 1, (1. - values[1][i]) * h / 2);
+        values[0][i] = values[1][i];
+    }
+    setPixmap(*pixmap);
 }
 
-void PlotArea::setT0(qint64 t0)
+void PlotArea::set(int index, qreal value)
 {
-    this->t0 = t0;
+    values[1][index] = (value == value) ? value : 0.;
+}
+
+void PlotArea::resizeEvent(QResizeEvent *)
+{
+    delete pixmap;
+    pixmap = new QPixmap(width(), height());
+    pixmap->fill();
+    QPainter p(pixmap);
+    p.drawLine(0, height() / 2, width(), height() / 2);
+    setPixmap(*pixmap);
 }

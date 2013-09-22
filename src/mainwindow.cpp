@@ -8,30 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     birdAddress("192.168.1.125"),
-    locale(QLocale::system()),
-    t0(QDateTime::currentMSecsSinceEpoch()),
-    altitude_current_graph(QColor(0, 0, 0), &altitude_scene, t0),
-    altitude_command_graph(QColor(0, 255, 0), &altitude_scene, t0),
-    altitude_motor_graph(QColor(255, 0, 0), &altitude_scene, t0),
-    roll_current_graph(QColor(0, 0, 0), &roll_scene, t0),
-    roll_command_graph(QColor(0, 255, 0), &roll_scene, t0),
-    roll_motor_graph(QColor(255, 0, 0), &roll_scene, t0),
-    pitch_current_graph(QColor(0, 0, 0), &pitch_scene, t0),
-    pitch_command_graph(QColor(0, 255, 0), &pitch_scene, t0),
-    pitch_motor_graph(QColor(255, 0, 0), &pitch_scene, t0),
-    yaw_rate_current_graph(QColor(0, 0, 0), &yaw_rate_scene, t0),
-    yaw_rate_command_graph(QColor(0, 255, 0), &yaw_rate_scene, t0),
-    yaw_rate_motor_graph(QColor(255, 0, 0), &yaw_rate_scene, t0)
+    locale(QLocale::system())
 {
     ui->setupUi(this);
-    ui->altitude_graph->setScene(&altitude_scene);
-    ui->altitude_graph->setT0(t0);
-    ui->roll_graph->setScene(&roll_scene);
-    ui->roll_graph->setT0(t0);
-    ui->pitch_graph->setScene(&pitch_scene);
-    ui->pitch_graph->setT0(t0);
-    ui->yaw_rate_graph->setScene(&yaw_rate_scene);
-    ui->yaw_rate_graph->setT0(t0);
     udpSocket.bind(PORT);
     joystick.open();
     connect(&udpSocket, SIGNAL(readyRead()),
@@ -58,25 +37,25 @@ void MainWindow::setTelemetry(const TelemetryPacket &telemetry)
     if (telemetry.has_attitude()) {
         const Attitude & attitude = telemetry.attitude();
         ui->altitude_current->setText(locale.toString(attitude.altitude(), 'f', 2));
-        altitude_current_graph.set(attitude.altitude());
+        ui->altitude_graph->set(CURRENT, attitude.altitude());
         ui->roll_current->setText(locale.toString(attitude.roll(), 'f', 2));
-        roll_current_graph.set(attitude.roll());
+        ui->roll_graph->set(CURRENT, attitude.roll());
         ui->pitch_current->setText(locale.toString(attitude.pitch(), 'f', 2));
-        pitch_current_graph.set(attitude.pitch());
+        ui->pitch_graph->set(CURRENT, attitude.pitch());
         ui->yaw_rate_current->setText(locale.toString(attitude.yaw_rate(), 'f', 2));
-        yaw_rate_current_graph.set(attitude.yaw_rate());
+        ui->yaw_rate_graph->set(CURRENT, attitude.yaw_rate());
     }
 
     if (telemetry.has_control()) {
         const MotorsControl & control = telemetry.control();
         ui->altitude_motors->setText(locale.toString(control.altitude_throttle()));
-        altitude_motor_graph.set(control.altitude_throttle());
+        ui->altitude_graph->set(MOTOR, control.altitude_throttle());
         ui->roll_motors->setText(locale.toString(control.roll_throttle()));
-        roll_motor_graph.set(control.roll_throttle());
+        ui->roll_graph->set(MOTOR, control.roll_throttle());
         ui->pitch_motors->setText(locale.toString(control.pitch_throttle()));
-        pitch_motor_graph.set(control.pitch_throttle());
+        ui->pitch_graph->set(MOTOR, control.pitch_throttle());
         ui->yaw_rate_motors->setText(locale.toString(control.yaw_throttle()));
-        yaw_rate_motor_graph.set(control.yaw_throttle());
+        ui->yaw_rate_graph->set(MOTOR, control.yaw_throttle());
     }
 }
 
@@ -136,7 +115,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         {
             CommandPacket::TelemetryConfig *tc =
                     config.mutable_telemetry_config();
-            tc->mutable_host()->assign("192.168.1.132");
+            tc->mutable_host()->assign("192.168.1.96");
             tc->set_port(PORT);
             tc->set_commandenabled(true);
             tc->set_attitudeenabled(true);
@@ -180,7 +159,7 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
             altitude = 1.f;
         }
         ui->altitude_command->setText(QString::number(altitude));
-        altitude_command_graph.set(altitude);
+        ui->altitude_graph->set(COMMAND, altitude);
         attitude->set_altitude(altitude);
         break;
     }
@@ -191,23 +170,23 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
             altitude = -1.f;
         }
         ui->altitude_command->setText(QString::number(altitude));
-        altitude_command_graph.set(altitude);
+        ui->altitude_graph->set(COMMAND, altitude);
         attitude->set_altitude(altitude);
         break;
     }
     case 0:
         ui->roll_command->setText(QString::number(value));
-        roll_command_graph.set(value);
+        ui->roll_graph->set(COMMAND, value);
         attitude->set_roll(value);
         break;
     case 1:
         ui->pitch_command->setText(QString::number(value));
-        pitch_command_graph.set(value);
+        ui->pitch_graph->set(COMMAND, value);
         attitude->set_pitch(value);
         break;
     case 3:
         ui->yaw_rate_command->setText(QString::number(value));
-        yaw_rate_command_graph.set(value);
+        ui->yaw_rate_graph->set(COMMAND, value);
         attitude->set_yaw_rate(value);
         break;
     }

@@ -7,7 +7,6 @@
 #include <QHostAddress>
 #include "Communication.pb.h"
 #include "qjoystick.h"
-#include "graph.h"
 using namespace org::hummingdroid;
 
 namespace Ui {
@@ -32,23 +31,6 @@ private:
     QHostAddress birdAddress;
     QLocale locale;
     QJoystick joystick;
-    qint64 t0;
-    QGraphicsScene altitude_scene;
-    Graph altitude_current_graph;
-    Graph altitude_command_graph;
-    Graph altitude_motor_graph;
-    QGraphicsScene roll_scene;
-    Graph roll_current_graph;
-    Graph roll_command_graph;
-    Graph roll_motor_graph;
-    QGraphicsScene pitch_scene;
-    Graph pitch_current_graph;
-    Graph pitch_command_graph;
-    Graph pitch_motor_graph;
-    QGraphicsScene yaw_rate_scene;
-    Graph yaw_rate_current_graph;
-    Graph yaw_rate_command_graph;
-    Graph yaw_rate_motor_graph;
 
     // Command packet
     CommandPacket command;

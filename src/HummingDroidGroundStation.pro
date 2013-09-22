@@ -16,14 +16,12 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     Communication.pb.cc \
     qjoystick.cpp \
-    plotarea.cpp \
-    graph.cpp
+    plotarea.cpp
 
 HEADERS  += mainwindow.h \
     Communication.pb.h \
     qjoystick.h \
-    plotarea.h \
-    graph.h
+    plotarea.h
 
 FORMS    += mainwindow.ui
 
