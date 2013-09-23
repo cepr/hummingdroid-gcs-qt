@@ -10,7 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     birdAddress("192.168.1.125"),
     locale(QLocale::system()),
-    emergency(false)
+    emergency(false),
+    joy_lt(-1.f),
+    joy_rt(-1.f)
 {
     ui->setupUi(this);
     restoreConfig();
@@ -70,6 +72,19 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     int id = event->timerId();
     if (id == command_timer_id) {
+        // Compute the new Joystick command (integrator for the altitude)
+        {
+            Attitude *attitude = command.mutable_command();
+            float altitude = attitude->altitude() + (joy_rt - joy_lt) / 100;
+            if (altitude > 1.f) {
+                altitude = 1.f;
+            } else if (altitude < -1.f) {
+                altitude = -1.f;
+            }
+            ui->altitude_command->setText(QString::number(altitude));
+            ui->altitude_graph->set(COMMAND, altitude);
+            attitude->set_altitude(altitude);
+        }
         // Send a command packet
         int size = command.ByteSize();
         char buffer[size];
@@ -195,28 +210,12 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
 
     Attitude *attitude = command.mutable_command();
     switch(axis) {
-    case 5:
-    {
-        float altitude = attitude->altitude() + (value + 1.f) / 100;
-        if (altitude > 1.f) {
-            altitude = 1.f;
-        }
-        ui->altitude_command->setText(QString::number(altitude));
-        ui->altitude_graph->set(COMMAND, altitude);
-        attitude->set_altitude(altitude);
+    case 5: // Right Trigger
+        joy_rt = value;
         break;
-    }
-    case 2:
-    {
-        float altitude = attitude->altitude() - (value + 1.f) / 100;
-        if (altitude < -1.f) {
-            altitude = -1.f;
-        }
-        ui->altitude_command->setText(QString::number(altitude));
-        ui->altitude_graph->set(COMMAND, altitude);
-        attitude->set_altitude(altitude);
+    case 2: // Left Trigger
+        joy_lt = value;
         break;
-    }
     case 0:
         ui->roll_command->setText(QString::number(value * .25));
         ui->roll_graph->set(COMMAND, value * .25);

@@ -40,6 +40,8 @@ private:
     CommandPacket config;
     int config_timer_id;
     bool emergency;
+    float joy_lt; // Joystick left trigger
+    float joy_rt; // Joystick right trigger
 
 public slots:
     void readPendingDatagrams();
