@@ -5,6 +5,7 @@
 #include <QLocale>
 #include <QUdpSocket>
 #include <QHostAddress>
+#include <QFile>
 #include "Communication.pb.h"
 #include "qjoystick.h"
 using namespace org::hummingdroid;
@@ -43,6 +44,7 @@ private:
     bool emergency;
     float joy_lt; // Joystick left trigger
     float joy_rt; // Joystick right trigger
+    QFile log;
 
 public slots:
     void readPendingDatagrams();

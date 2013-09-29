@@ -12,7 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     locale(QLocale::system()),
     emergency(false),
     joy_lt(-1.f),
-    joy_rt(-1.f)
+    joy_rt(-1.f),
+    log("/tmp/log.csv")
 {
     command.mutable_command()->set_altitude(0.f);
     command.mutable_command()->set_pitch(0.f);
@@ -79,10 +80,14 @@ MainWindow::MainWindow(QWidget *parent) :
         tc->set_attitudeenabled(true);
         tc->set_controlenabled(true);
     }
+
+    log.open(QIODevice::WriteOnly | QIODevice::Text);
+    log.write("altitude,roll,pitch,yaw_rate,altitude,roll,pitch,yaw_rate\n");
 }
 
 MainWindow::~MainWindow()
 {
+    log.close();
     delete ui;
 }
 
@@ -98,6 +103,14 @@ void MainWindow::setTelemetry(const TelemetryPacket &telemetry)
         ui->pitch_graph->set(CURRENT, attitude.pitch());
         ui->yaw_rate_current->setText(locale.toString(attitude.yaw_rate(), 'f', 2));
         ui->yaw_rate_graph->set(CURRENT, attitude.yaw_rate());
+
+        log.write(QString("%1,%2,%3,%4,")
+                  .arg(attitude.altitude())
+                  .arg(attitude.roll())
+                  .arg(attitude.pitch())
+                  .arg(attitude.yaw_rate()).toUtf8());
+    } else {
+        log.write("0,0,0,0,");
     }
 
     if (telemetry.has_control()) {
@@ -110,6 +123,14 @@ void MainWindow::setTelemetry(const TelemetryPacket &telemetry)
         ui->pitch_graph->set(MOTOR, control.pitch_throttle());
         ui->yaw_rate_motors->setText(locale.toString(control.yaw_throttle()));
         ui->yaw_rate_graph->set(MOTOR, control.yaw_throttle());
+
+        log.write(QString("%1,%2,%3,%4\n")
+                  .arg(control.altitude_throttle())
+                  .arg(control.roll_throttle())
+                  .arg(control.pitch_throttle())
+                  .arg(control.yaw_throttle()).toUtf8());
+    } else {
+        log.write("0,0,0,0\n");
     }
 }
 
