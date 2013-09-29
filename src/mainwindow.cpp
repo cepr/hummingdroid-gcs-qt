@@ -14,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
     joy_lt(-1.f),
     joy_rt(-1.f)
 {
+    command.mutable_command()->set_altitude(0.f);
+    command.mutable_command()->set_pitch(0.f);
+    command.mutable_command()->set_roll(0.f);
+    command.mutable_command()->set_yaw_rate(0.f);
     ui->setupUi(this);
     restoreConfig();
     udpSocket.bind(PORT);
@@ -34,6 +38,47 @@ MainWindow::MainWindow(QWidget *parent) :
     command_timer_id = startTimer(20);
     // Sending configuration every second
     config_timer_id = startTimer(1000);
+
+    // Emergency config
+    {
+        CommandPacket::ControllerConfig *cc =
+                emergency_config.mutable_controller_config();
+        cc->mutable_altitude_pid()->set_kp(0.f);
+        cc->mutable_altitude_pid()->set_ki(0.f);
+        cc->mutable_altitude_pid()->set_kd(0.f);
+        cc->mutable_altitude_pid()->set_ko(0.f);
+        cc->mutable_roll_pid()->set_kp(0.f);
+        cc->mutable_roll_pid()->set_ki(0.f);
+        cc->mutable_roll_pid()->set_kd(0.f);
+        cc->mutable_roll_pid()->set_ko(0.f);
+        cc->mutable_pitch_pid()->set_kp(0.f);
+        cc->mutable_pitch_pid()->set_ki(0.f);
+        cc->mutable_pitch_pid()->set_kd(0.f);
+        cc->mutable_pitch_pid()->set_ko(0.f);
+        cc->mutable_yaw_rate_pid()->set_kp(0.f);
+        cc->mutable_yaw_rate_pid()->set_ki(0.f);
+        cc->mutable_yaw_rate_pid()->set_kd(0.f);
+        cc->mutable_yaw_rate_pid()->set_ko(0.f);
+
+        CommandPacket::TelemetryConfig *tc =
+                emergency_config.mutable_telemetry_config();
+        tc->mutable_host()->assign("192.168.43.101");
+        tc->set_port(PORT);
+        tc->set_commandenabled(true);
+        tc->set_attitudeenabled(true);
+        tc->set_controlenabled(true);
+    }
+
+    // Functional config
+    {
+        CommandPacket::TelemetryConfig *tc =
+                config.mutable_telemetry_config();
+        tc->mutable_host()->assign("192.168.43.101");
+        tc->set_port(PORT);
+        tc->set_commandenabled(true);
+        tc->set_attitudeenabled(true);
+        tc->set_controlenabled(true);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -71,30 +116,12 @@ void MainWindow::setTelemetry(const TelemetryPacket &telemetry)
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     int id = event->timerId();
-    if (id == command_timer_id) {
-        // Compute the new Joystick command (integrator for the altitude)
-        {
-            Attitude *attitude = command.mutable_command();
-            float altitude = attitude->altitude() + (joy_rt - joy_lt) / 100;
-            if (altitude > 1.f) {
-                altitude = 1.f;
-            } else if (altitude < -1.f) {
-                altitude = -1.f;
-            }
-            ui->altitude_command->setText(QString::number(altitude));
-            ui->altitude_graph->set(COMMAND, altitude);
-            attitude->set_altitude(altitude);
-        }
-        // Send a command packet
-        int size = command.ByteSize();
-        char buffer[size];
-        assert(command.SerializeToArray(buffer, sizeof(buffer)));
-        assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
-    } else if (id == config_timer_id) {
+
+    if (id == config_timer_id || emergency) {
         // Send a config packet
-        CommandPacket::ControllerConfig *cc =
-                config.mutable_controller_config();
         if (!emergency) {
+            CommandPacket::ControllerConfig *cc =
+                    config.mutable_controller_config();
             {
                 PID *pid = cc->mutable_altitude_pid();
                 pid->set_kp(ui->altitude_kp->text().toFloat());
@@ -123,66 +150,51 @@ void MainWindow::timerEvent(QTimerEvent *event)
                 pid->set_kd(ui->yaw_rate_kd->text().toFloat());
                 pid->set_ko(ui->yaw_rate_ko->text().toFloat());
             }
-        } else {
-            {
-                PID *pid = cc->mutable_altitude_pid();
-                pid->set_kp(0.f);
-                pid->set_ki(0.f);
-                pid->set_kd(0.f);
-                pid->set_ko(0.f);
+            if (ui->roll_max_enabled->isChecked()) {
+                cc->set_max_inclinaison(ui->roll_max->text().toFloat());
+            } else {
+                cc->clear_max_inclinaison();
             }
-            {
-                PID *pid = cc->mutable_roll_pid();
-                pid->set_kp(0.f);
-                pid->set_ki(0.f);
-                pid->set_kd(0.f);
-                pid->set_ko(0.f);
+            if (ui->altitude_max_enabled->isChecked()) {
+                cc->set_max_altitude(ui->altitude_max->text().toFloat());
+            } else {
+                cc->clear_max_altitude();
             }
-            {
-                PID *pid = cc->mutable_pitch_pid();
-                pid->set_kp(0.f);
-                pid->set_ki(0.f);
-                pid->set_kd(0.f);
-                pid->set_ko(0.f);
+            if (ui->yaw_rate_max_enabled->isChecked()) {
+                cc->set_max_yaw_rate(ui->yaw_rate_max->text().toFloat());
+            } else {
+                cc->clear_max_yaw_rate();
             }
-            {
-                PID *pid = cc->mutable_yaw_rate_pid();
-                pid->set_kp(0.f);
-                pid->set_ki(0.f);
-                pid->set_kd(0.f);
-                pid->set_ko(0.f);
-            }
-        }
-        if (ui->roll_max_enabled->isChecked()) {
-            cc->set_max_inclinaison(ui->roll_max->text().toFloat());
+
+            int size = config.ByteSize();
+            char buffer[size];
+            assert(config.SerializeToArray(buffer, sizeof(buffer)));
+            assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
         } else {
-            cc->clear_max_inclinaison();
-        }
-        if (ui->altitude_max_enabled->isChecked()) {
-            cc->set_max_altitude(ui->altitude_max->text().toFloat());
-        } else {
-            cc->clear_max_altitude();
-        }
-        if (ui->yaw_rate_max_enabled->isChecked()) {
-            cc->set_max_yaw_rate(ui->yaw_rate_max->text().toFloat());
-        } else {
-            cc->clear_max_yaw_rate();
+            int size = emergency_config.ByteSize();
+            char buffer[size];
+            assert(emergency_config.SerializeToArray(buffer, sizeof(buffer)));
+            assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
         }
 
-        // Telemetry config
+    } else if (id == command_timer_id) {
+        // Compute the new Joystick command (integrator for the altitude)
         {
-            CommandPacket::TelemetryConfig *tc =
-                    config.mutable_telemetry_config();
-            tc->mutable_host()->assign("192.168.1.96");
-            tc->set_port(PORT);
-            tc->set_commandenabled(true);
-            tc->set_attitudeenabled(true);
-            tc->set_controlenabled(true);
+            Attitude *attitude = command.mutable_command();
+            float altitude = attitude->altitude() + (joy_rt - joy_lt) / 100;
+            if (altitude > 1.f) {
+                altitude = 1.f;
+            } else if (altitude < 0.f) {
+                altitude = 0.f;
+            }
+            ui->altitude_command->setText(QString::number(altitude));
+            ui->altitude_graph->set(COMMAND, altitude);
+            attitude->set_altitude(altitude);
         }
-
-        int size = config.ByteSize();
+        // Send a command packet
+        int size = command.ByteSize();
         char buffer[size];
-        assert(config.SerializeToArray(buffer, sizeof(buffer)));
+        assert(command.SerializeToArray(buffer, sizeof(buffer)));
         assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
     }
 }

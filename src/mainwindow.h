@@ -38,6 +38,7 @@ private:
 
     // Configuration packet
     CommandPacket config;
+    CommandPacket emergency_config;
     int config_timer_id;
     bool emergency;
     float joy_lt; // Joystick left trigger
