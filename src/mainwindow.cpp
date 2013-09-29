@@ -8,7 +8,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    birdAddress("192.168.1.125"),
+    birdAddress("192.168.43.1"),
     locale(QLocale::system()),
     emergency(false),
     joy_lt(-1.f),
