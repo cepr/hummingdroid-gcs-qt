@@ -6,11 +6,11 @@ PlotArea::PlotArea(QWidget *parent) :
     QLabel(parent)
 {
     pens[CURRENT].setColor(QColor(0, 0, 0));
-    pens[CURRENT].setWidth(3);
+    pens[CURRENT].setWidth(1);
     pens[COMMAND].setColor(QColor(0, 0, 255));
-    pens[COMMAND].setWidth(3);
+    pens[COMMAND].setWidth(1);
     pens[MOTOR].setColor(QColor(255, 0, 0));
-    pens[MOTOR].setWidth(3);
+    pens[MOTOR].setWidth(1);
 
     memset(values, 0, sizeof(values));
     pixmap = new QPixmap(width(), height());
