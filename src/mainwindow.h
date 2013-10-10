@@ -53,6 +53,7 @@ public slots:
     void onJoyButtonReleased(qint64 timestamp, int button);
     void restoreConfig();
     void saveConfig();
+    void onTabChanged(int tab);
 };
 
 #endif // MAINWINDOW_H

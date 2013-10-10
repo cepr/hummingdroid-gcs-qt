@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("hummingdroid");
     QCoreApplication::setApplicationName("hummingdroid-gcs-qt");
     QApplication a(argc, argv);
-    a.setApplicationDisplayName("Humming Droid");
+    a.setApplicationDisplayName("HummingDroid");
     MainWindow w;
     w.show();
     return a.exec();

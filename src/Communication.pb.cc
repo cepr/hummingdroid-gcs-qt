@@ -576,6 +576,7 @@ const int PID::kKpFieldNumber;
 const int PID::kKiFieldNumber;
 const int PID::kKdFieldNumber;
 const int PID::kKoFieldNumber;
+const int PID::kTdFieldNumber;
 #endif  // !_MSC_VER
 
 PID::PID()
@@ -598,6 +599,7 @@ void PID::SharedCtor() {
   ki_ = 0;
   kd_ = 0;
   ko_ = 0;
+  td_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -631,6 +633,7 @@ void PID::Clear() {
     ki_ = 0;
     kd_ = 0;
     ko_ = 0;
+    td_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -700,6 +703,22 @@ bool PID::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(45)) goto parse_Td;
+        break;
+      }
+      
+      // required float Td = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_Td:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &td_)));
+          set_has_td();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -741,6 +760,11 @@ void PID::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->ko(), output);
   }
   
+  // required float Td = 5;
+  if (has_td()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->td(), output);
+  }
+  
 }
 
 int PID::ByteSize() const {
@@ -764,6 +788,11 @@ int PID::ByteSize() const {
     
     // required float Ko = 4;
     if (has_ko()) {
+      total_size += 1 + 4;
+    }
+    
+    // required float Td = 5;
+    if (has_td()) {
       total_size += 1 + 4;
     }
     
@@ -794,6 +823,9 @@ void PID::MergeFrom(const PID& from) {
     if (from.has_ko()) {
       set_ko(from.ko());
     }
+    if (from.has_td()) {
+      set_td(from.td());
+    }
   }
 }
 
@@ -804,7 +836,7 @@ void PID::CopyFrom(const PID& from) {
 }
 
 bool PID::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
   
   return true;
 }
@@ -815,6 +847,7 @@ void PID::Swap(PID* other) {
     std::swap(ki_, other->ki_);
     std::swap(kd_, other->kd_);
     std::swap(ko_, other->ko_);
+    std::swap(td_, other->td_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     std::swap(_cached_size_, other->_cached_size_);
   }

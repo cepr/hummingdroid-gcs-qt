@@ -312,6 +312,13 @@ class PID : public ::google::protobuf::MessageLite {
   inline float ko() const;
   inline void set_ko(float value);
   
+  // required float Td = 5;
+  inline bool has_td() const;
+  inline void clear_td();
+  static const int kTdFieldNumber = 5;
+  inline float td() const;
+  inline void set_td(float value);
+  
   // @@protoc_insertion_point(class_scope:org.hummingdroid.PID)
  private:
   inline void set_has_kp();
@@ -322,14 +329,17 @@ class PID : public ::google::protobuf::MessageLite {
   inline void clear_has_kd();
   inline void set_has_ko();
   inline void clear_has_ko();
+  inline void set_has_td();
+  inline void clear_has_td();
   
   float kp_;
   float ki_;
   float kd_;
   float ko_;
+  float td_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
   
   friend void  protobuf_AddDesc_Communication_2eproto();
   friend void protobuf_AssignDesc_Communication_2eproto();
@@ -1129,6 +1139,28 @@ inline float PID::ko() const {
 inline void PID::set_ko(float value) {
   set_has_ko();
   ko_ = value;
+}
+
+// required float Td = 5;
+inline bool PID::has_td() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void PID::set_has_td() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void PID::clear_has_td() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void PID::clear_td() {
+  td_ = 0;
+  clear_has_td();
+}
+inline float PID::td() const {
+  return td_;
+}
+inline void PID::set_td(float value) {
+  set_has_td();
+  td_ = value;
 }
 
 // -------------------------------------------------------------------

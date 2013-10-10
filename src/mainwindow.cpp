@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     joy_rt(-1.f),
     log("/tmp/log.csv")
 {
+    showMaximized();
     command.mutable_command()->set_altitude(0.f);
     command.mutable_command()->set_pitch(0.f);
     command.mutable_command()->set_roll(0.f);
@@ -35,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(restoreConfig()));
     connect(ui->action_Save, SIGNAL(triggered()),
             this, SLOT(saveConfig()));
+    connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
     // Sending command every 20ms
     command_timer_id = startTimer(20);
     // Sending configuration every second
@@ -47,18 +49,22 @@ MainWindow::MainWindow(QWidget *parent) :
         cc->mutable_altitude_pid()->set_kp(0.f);
         cc->mutable_altitude_pid()->set_ki(0.f);
         cc->mutable_altitude_pid()->set_kd(0.f);
+        cc->mutable_altitude_pid()->set_td(0.f);
         cc->mutable_altitude_pid()->set_ko(0.f);
         cc->mutable_roll_pid()->set_kp(0.f);
         cc->mutable_roll_pid()->set_ki(0.f);
         cc->mutable_roll_pid()->set_kd(0.f);
+        cc->mutable_roll_pid()->set_td(0.f);
         cc->mutable_roll_pid()->set_ko(0.f);
         cc->mutable_pitch_pid()->set_kp(0.f);
         cc->mutable_pitch_pid()->set_ki(0.f);
         cc->mutable_pitch_pid()->set_kd(0.f);
+        cc->mutable_pitch_pid()->set_td(0.f);
         cc->mutable_pitch_pid()->set_ko(0.f);
         cc->mutable_yaw_rate_pid()->set_kp(0.f);
         cc->mutable_yaw_rate_pid()->set_ki(0.f);
         cc->mutable_yaw_rate_pid()->set_kd(0.f);
+        cc->mutable_yaw_rate_pid()->set_td(0.f);
         cc->mutable_yaw_rate_pid()->set_ko(0.f);
 
         CommandPacket::TelemetryConfig *tc =
@@ -95,14 +101,10 @@ void MainWindow::setTelemetry(const TelemetryPacket &telemetry)
 {
     if (telemetry.has_attitude()) {
         const Attitude & attitude = telemetry.attitude();
-        ui->altitude_current->setText(locale.toString(attitude.altitude(), 'f', 2));
-        ui->altitude_graph->set(CURRENT, attitude.altitude());
-        ui->roll_current->setText(locale.toString(attitude.roll(), 'f', 2));
-        ui->roll_graph->set(CURRENT, attitude.roll());
-        ui->pitch_current->setText(locale.toString(attitude.pitch(), 'f', 2));
-        ui->pitch_graph->set(CURRENT, attitude.pitch());
-        ui->yaw_rate_current->setText(locale.toString(attitude.yaw_rate(), 'f', 2));
-        ui->yaw_rate_graph->set(CURRENT, attitude.yaw_rate());
+        ui->tab_altitude->setAttitude(attitude.altitude());
+        ui->tab_roll->setAttitude(attitude.roll());
+        ui->tab_pitch->setAttitude(attitude.pitch());
+        ui->tab_yaw_rate->setAttitude(attitude.yaw_rate());
 
         log.write(QString("%1,%2,%3,%4,")
                   .arg(attitude.altitude())
@@ -115,14 +117,10 @@ void MainWindow::setTelemetry(const TelemetryPacket &telemetry)
 
     if (telemetry.has_control()) {
         const MotorsControl & control = telemetry.control();
-        ui->altitude_motors->setText(locale.toString(control.altitude_throttle()));
-        ui->altitude_graph->set(MOTOR, control.altitude_throttle());
-        ui->roll_motors->setText(locale.toString(control.roll_throttle()));
-        ui->roll_graph->set(MOTOR, control.roll_throttle());
-        ui->pitch_motors->setText(locale.toString(control.pitch_throttle()));
-        ui->pitch_graph->set(MOTOR, control.pitch_throttle());
-        ui->yaw_rate_motors->setText(locale.toString(control.yaw_throttle()));
-        ui->yaw_rate_graph->set(MOTOR, control.yaw_throttle());
+        ui->tab_altitude->setControl(control.altitude_throttle());
+        ui->tab_roll->setControl(control.roll_throttle());
+        ui->tab_pitch->setControl(control.pitch_throttle());
+        ui->tab_yaw_rate->setControl(control.yaw_throttle());
 
         log.write(QString("%1,%2,%3,%4\n")
                   .arg(control.altitude_throttle())
@@ -143,36 +141,12 @@ void MainWindow::timerEvent(QTimerEvent *event)
         if (!emergency) {
             CommandPacket::ControllerConfig *cc =
                     config.mutable_controller_config();
-            {
-                PID *pid = cc->mutable_altitude_pid();
-                pid->set_kp(ui->altitude_kp->text().toFloat());
-                pid->set_ki(ui->altitude_ki->text().toFloat());
-                pid->set_kd(ui->altitude_kd->text().toFloat());
-                pid->set_ko(ui->altitude_ko->text().toFloat());
-            }
-            {
-                PID *pid = cc->mutable_roll_pid();
-                pid->set_kp(ui->roll_kp->text().toFloat());
-                pid->set_ki(ui->roll_ki->text().toFloat());
-                pid->set_kd(ui->roll_kd->text().toFloat());
-                pid->set_ko(ui->roll_ko->text().toFloat());
-            }
-            {
-                PID *pid = cc->mutable_pitch_pid();
-                pid->set_kp(ui->pitch_kp->text().toFloat());
-                pid->set_ki(ui->pitch_ki->text().toFloat());
-                pid->set_kd(ui->pitch_kd->text().toFloat());
-                pid->set_ko(ui->pitch_ko->text().toFloat());
-            }
-            {
-                PID *pid = cc->mutable_yaw_rate_pid();
-                pid->set_kp(ui->yaw_rate_kp->text().toFloat());
-                pid->set_ki(ui->yaw_rate_ki->text().toFloat());
-                pid->set_kd(ui->yaw_rate_kd->text().toFloat());
-                pid->set_ko(ui->yaw_rate_ko->text().toFloat());
-            }
-            if (ui->roll_max_enabled->isChecked()) {
-                cc->set_max_inclinaison(ui->roll_max->text().toFloat());
+            cc->mutable_altitude_pid()->CopyFrom(ui->tab_altitude->getPID());
+            cc->mutable_roll_pid()->CopyFrom(ui->tab_roll->getPID());
+            cc->mutable_pitch_pid()->CopyFrom(ui->tab_pitch->getPID());
+            cc->mutable_yaw_rate_pid()->CopyFrom(ui->tab_yaw_rate->getPID());
+            if (ui->inclinaison_max_enabled->isChecked()) {
+                cc->set_max_inclinaison(ui->inclinaison_max->text().toFloat());
             } else {
                 cc->clear_max_inclinaison();
             }
@@ -187,15 +161,18 @@ void MainWindow::timerEvent(QTimerEvent *event)
                 cc->clear_max_yaw_rate();
             }
 
+            CommandPacket::SensorsConfig *sc = config.mutable_sensors_config();
+            sc->set_accel_lowpass_constant(ui->accel_low_pass->text().toFloat());
+
             int size = config.ByteSize();
             char buffer[size];
             assert(config.SerializeToArray(buffer, sizeof(buffer)));
-            assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
+            udpSocket.writeDatagram(buffer, size, birdAddress, PORT);
         } else {
             int size = emergency_config.ByteSize();
             char buffer[size];
             assert(emergency_config.SerializeToArray(buffer, sizeof(buffer)));
-            assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
+            udpSocket.writeDatagram(buffer, size, birdAddress, PORT);
         }
 
     } else if (id == command_timer_id) {
@@ -208,15 +185,14 @@ void MainWindow::timerEvent(QTimerEvent *event)
             } else if (altitude < 0.f) {
                 altitude = 0.f;
             }
-            ui->altitude_command->setText(QString::number(altitude));
-            ui->altitude_graph->set(COMMAND, altitude);
+            ui->tab_altitude->setCommand(altitude);
             attitude->set_altitude(altitude);
         }
         // Send a command packet
         int size = command.ByteSize();
         char buffer[size];
         assert(command.SerializeToArray(buffer, sizeof(buffer)));
-        assert(udpSocket.writeDatagram(buffer, size, birdAddress, PORT) == size);
+        udpSocket.writeDatagram(buffer, size, birdAddress, PORT);
     }
 }
 
@@ -250,18 +226,15 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
         joy_lt = value;
         break;
     case 0:
-        ui->roll_command->setText(QString::number(value * .25));
-        ui->roll_graph->set(COMMAND, value * .25);
+        ui->tab_roll->setCommand(value * .25);
         attitude->set_roll(value * .25);
         break;
     case 1:
-        ui->pitch_command->setText(QString::number(value * .25));
-        ui->pitch_graph->set(COMMAND, value * .25);
+        ui->tab_pitch->setCommand(value * .25);
         attitude->set_pitch(value * .25);
         break;
     case 3:
-        ui->yaw_rate_command->setText(QString::number(value));
-        ui->yaw_rate_graph->set(COMMAND, value);
+        ui->tab_yaw_rate->setCommand(value);
         attitude->set_yaw_rate(value);
         break;
     }
@@ -292,42 +265,12 @@ void MainWindow::restoreConfig()
     if (v.type() == QVariant::ByteArray) {
         const QByteArray & buffer = v.toByteArray();
         config.ParseFromArray(buffer.data(), buffer.size());
-    } else {
-        // Apply default config
-        config.mutable_controller_config()->mutable_altitude_pid()->set_kp(0.f);
-        config.mutable_controller_config()->mutable_altitude_pid()->set_ki(0.f);
-        config.mutable_controller_config()->mutable_altitude_pid()->set_kd(0.f);
-        config.mutable_controller_config()->mutable_altitude_pid()->set_ko(0.f);
-        config.mutable_controller_config()->mutable_roll_pid()->set_kp(0.f);
-        config.mutable_controller_config()->mutable_roll_pid()->set_ki(0.f);
-        config.mutable_controller_config()->mutable_roll_pid()->set_kd(0.f);
-        config.mutable_controller_config()->mutable_roll_pid()->set_ko(0.f);
-        config.mutable_controller_config()->mutable_pitch_pid()->set_kp(0.f);
-        config.mutable_controller_config()->mutable_pitch_pid()->set_ki(0.f);
-        config.mutable_controller_config()->mutable_pitch_pid()->set_kd(0.f);
-        config.mutable_controller_config()->mutable_pitch_pid()->set_ko(0.f);
-        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_kp(0.f);
-        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_ki(0.f);
-        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_kd(0.f);
-        config.mutable_controller_config()->mutable_yaw_rate_pid()->set_ko(0.f);
     }
     // Update UI
-    ui->altitude_kp->setText(QString::number(config.controller_config().altitude_pid().kp()));
-    ui->altitude_ki->setText(QString::number(config.controller_config().altitude_pid().ki()));
-    ui->altitude_kd->setText(QString::number(config.controller_config().altitude_pid().kd()));
-    ui->altitude_ko->setText(QString::number(config.controller_config().altitude_pid().ko()));
-    ui->roll_kp->setText(QString::number(config.controller_config().roll_pid().kp()));
-    ui->roll_ki->setText(QString::number(config.controller_config().roll_pid().ki()));
-    ui->roll_kd->setText(QString::number(config.controller_config().roll_pid().kd()));
-    ui->roll_ko->setText(QString::number(config.controller_config().roll_pid().ko()));
-    ui->pitch_kp->setText(QString::number(config.controller_config().pitch_pid().kp()));
-    ui->pitch_ki->setText(QString::number(config.controller_config().pitch_pid().ki()));
-    ui->pitch_kd->setText(QString::number(config.controller_config().pitch_pid().kd()));
-    ui->pitch_ko->setText(QString::number(config.controller_config().pitch_pid().ko()));
-    ui->yaw_rate_kp->setText(QString::number(config.controller_config().yaw_rate_pid().kp()));
-    ui->yaw_rate_ki->setText(QString::number(config.controller_config().yaw_rate_pid().ki()));
-    ui->yaw_rate_kd->setText(QString::number(config.controller_config().yaw_rate_pid().kd()));
-    ui->yaw_rate_ko->setText(QString::number(config.controller_config().yaw_rate_pid().ko()));
+    ui->tab_altitude->setPID(config.controller_config().altitude_pid());
+    ui->tab_roll->setPID(config.controller_config().roll_pid());
+    ui->tab_pitch->setPID(config.controller_config().pitch_pid());
+    ui->tab_yaw_rate->setPID(config.controller_config().yaw_rate_pid());
     if (config.controller_config().has_max_altitude()) {
         ui->altitude_max_enabled->setChecked(true);
         ui->altitude_max->setText(QString::number(config.controller_config().max_altitude()));
@@ -336,11 +279,11 @@ void MainWindow::restoreConfig()
         ui->altitude_max->setText("");
     }
     if (config.controller_config().has_max_inclinaison()) {
-        ui->roll_max_enabled->setChecked(true);
-        ui->roll_max->setText(QString::number(config.controller_config().max_inclinaison()));
+        ui->inclinaison_max_enabled->setChecked(true);
+        ui->inclinaison_max->setText(QString::number(config.controller_config().max_inclinaison()));
     } else {
-        ui->roll_max_enabled->setChecked(false);
-        ui->roll_max->setText("");
+        ui->inclinaison_max_enabled->setChecked(false);
+        ui->inclinaison_max->setText("");
     }
     if (config.controller_config().has_max_yaw_rate()) {
         ui->yaw_rate_max_enabled->setChecked(true);
@@ -348,6 +291,9 @@ void MainWindow::restoreConfig()
     } else {
         ui->yaw_rate_max_enabled->setChecked(false);
         ui->yaw_rate_max->setText("");
+    }
+    if (config.has_sensors_config()) {
+        ui->accel_low_pass->setText(QString::number(config.sensors_config().accel_lowpass_constant()));
     }
 }
 
@@ -357,4 +303,12 @@ void MainWindow::saveConfig()
     QByteArray buffer(config.ByteSize(), 0);
     config.SerializeToArray(buffer.data(), buffer.size());
     settings.setValue("config", QVariant(buffer));
+}
+
+void MainWindow::onTabChanged(int tab)
+{
+    ui->tab_altitude->pause(tab != 0);
+    ui->tab_roll->pause(tab != 1);
+    ui->tab_pitch->pause(tab != 2);
+    ui->tab_yaw_rate->pause(tab != 3);
 }

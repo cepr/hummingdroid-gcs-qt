@@ -30,60 +30,61 @@ option optimize_for = LITE_RUNTIME;
 package org.hummingdroid;
 
 message Attitude {
-	required float altitude = 1; // Altitude from ground in meters
-	required float roll = 2; // Roll in radians
-	required float pitch = 3; // Pitch in radians
-	required float yaw_rate = 4; // Yaw rate in radians/second
+    required float altitude = 1; // Altitude from ground in meters
+    required float roll = 2; // Roll in radians
+    required float pitch = 3; // Pitch in radians
+    required float yaw_rate = 4; // Yaw rate in radians/second
 }
 
 message MotorsControl {
-	required float altitude_throttle = 1; // Altitude throttle
-	required float roll_throttle = 2; // Roll angular throttle
-	required float pitch_throttle = 3; // Pitch angular throttle
-	required float yaw_throttle = 4; // Yaw angular throttle
+    required float altitude_throttle = 1; // Altitude throttle
+    required float roll_throttle = 2; // Roll angular throttle
+    required float pitch_throttle = 3; // Pitch angular throttle
+    required float yaw_throttle = 4; // Yaw angular throttle
 }
 
 message PID {
-	required float Kp = 1; // proportional factor
-	required float Ki = 2; // integral factor
-	required float Kd = 3; // derivative factor
-	required float Ko = 4; // offset
+    required float Kp = 1; // proportional factor
+    required float Ki = 2; // integral factor
+    required float Kd = 3; // derivative factor
+    required float Ko = 4; // offset
+    required float Td = 5; // derivative low-pass time constant
 }
 
 // Command packet sent from ground to air.
 message CommandPacket {
 
-	message ControllerConfig {
-		required PID altitude_pid = 1;
-		required PID roll_pid = 2;
-		required PID pitch_pid = 3;
-		required PID yaw_rate_pid = 4;
-		optional float max_inclinaison = 5;
-		optional float max_altitude = 6;
-		optional float max_yaw_rate = 7;
-	}
+    message ControllerConfig {
+        required PID altitude_pid = 1;
+        required PID roll_pid = 2;
+        required PID pitch_pid = 3;
+        required PID yaw_rate_pid = 4;
+        optional float max_inclinaison = 5;
+        optional float max_altitude = 6;
+        optional float max_yaw_rate = 7;
+    }
 
-	message TelemetryConfig {
-		required string host = 1;
-		required int32 port = 2;
-		required bool commandEnabled = 3;
-		required bool attitudeEnabled = 4;
-		required bool controlEnabled = 5;
-	}
+    message TelemetryConfig {
+        required string host = 1;
+        required int32 port = 2;
+        required bool commandEnabled = 3;
+        required bool attitudeEnabled = 4;
+        required bool controlEnabled = 5;
+    }
 
-	message SensorsConfig {
-		required float accel_lowpass_constant = 1;
-	}
+    message SensorsConfig {
+        required float accel_lowpass_constant = 1;
+    }
 
-	optional Attitude 			command = 1;
-	optional ControllerConfig	controller_config = 2;
-	optional TelemetryConfig 	telemetry_config = 3;
-	optional SensorsConfig		sensors_config = 4;
+    optional Attitude 			command = 1;
+    optional ControllerConfig	controller_config = 2;
+    optional TelemetryConfig 	telemetry_config = 3;
+    optional SensorsConfig		sensors_config = 4;
 }
 
-// Telemetry packet sent from air to ground. 
+// Telemetry packet sent from air to ground.
 message TelemetryPacket {
-	optional Attitude		command = 1; 
-	optional Attitude		attitude = 2;
-	optional MotorsControl	control = 3;
+    optional Attitude		command = 1;
+    optional Attitude		attitude = 2;
+    optional MotorsControl	control = 3;
 }
