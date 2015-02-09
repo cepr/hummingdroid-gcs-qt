@@ -34,6 +34,7 @@ message Attitude {
     required float roll = 2; // Roll in radians
     required float pitch = 3; // Pitch in radians
     required float yaw_rate = 4; // Yaw rate in radians/second
+    optional double timestamp = 5; // Timestamp in seconds
 }
 
 message MotorsControl {
@@ -41,6 +42,7 @@ message MotorsControl {
     required float roll_throttle = 2; // Roll angular throttle
     required float pitch_throttle = 3; // Pitch angular throttle
     required float yaw_throttle = 4; // Yaw angular throttle
+    optional double timestamp = 5; // Timestamp in seconds
 }
 
 message PID {
@@ -74,17 +76,28 @@ message CommandPacket {
 
     message SensorsConfig {
         required float accel_lowpass_constant = 1;
+        required float gyro_roll_bias = 2;
+        required float gyro_pitch_bias = 3;
+        required float gyro_yaw_bias = 4;
+        required float accel_roll_bias = 5;
+        required float accel_pitch_bias = 6;
     }
 
-    optional Attitude 			command = 1;
-    optional ControllerConfig	controller_config = 2;
-    optional TelemetryConfig 	telemetry_config = 3;
-    optional SensorsConfig		sensors_config = 4;
+    message MotorsConfig {
+        required int32 min_pwm = 1;
+        required int32 max_pwm = 2;
+    }
+
+    optional Attitude           command = 1;
+    optional ControllerConfig   controller_config = 2;
+    optional TelemetryConfig    telemetry_config = 3;
+    optional SensorsConfig      sensors_config = 4;
+    optional MotorsConfig       motors_config = 5;
 }
 
 // Telemetry packet sent from air to ground.
 message TelemetryPacket {
-    optional Attitude		command = 1;
-    optional Attitude		attitude = 2;
-    optional MotorsControl	control = 3;
+    optional Attitude       command = 1;
+    optional Attitude       attitude = 2;
+    optional MotorsControl  control = 3;
 }

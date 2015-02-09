@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1022</width>
-    <height>561</height>
+    <height>603</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -79,45 +79,164 @@
           <property name="fieldGrowthPolicy">
            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
           </property>
-          <item row="1" column="0">
-           <widget class="QLabel" name="accel_low_pass_label">
-            <property name="text">
-             <string>Accel Low pass constant</string>
+          <item row="3" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Security</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="inclinaison_max"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="inclinaison_max_enabled">
+               <property name="text">
+                <string>Max inclinaison</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="altitude_max"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="altitude_max_enabled">
+               <property name="text">
+                <string>Max altitude</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QCheckBox" name="yaw_rate_max_enabled">
+               <property name="text">
+                <string>Max yaw rate</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="yaw_rate_max"/>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="accel_low_pass"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QCheckBox" name="altitude_max_enabled">
-            <property name="text">
-             <string>Max altitude</string>
+          <item row="0" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Sensors</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLabel" name="accel_low_pass_label">
+                 <property name="text">
+                  <string>Accel Low pass constant</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="accel_low_pass"/>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QGridLayout" name="gridLayout_5">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Gyro roll bias</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="gyro_roll_bias"/>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="gyro_pitch_bias"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Gyro yaw bias</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QPushButton" name="calibrate_gyro">
+                 <property name="text">
+                  <string>Calibrate</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Accel roll bias</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="4">
+                <widget class="QPushButton" name="calibrate_accel">
+                 <property name="text">
+                  <string>Calibrate</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Gyro pitch bias</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="gyro_yaw_bias"/>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLineEdit" name="accel_roll_bias"/>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Accel pitch bias</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLineEdit" name="accel_pitch_bias"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="altitude_max"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="inclinaison_max_enabled">
-            <property name="text">
-             <string>Max inclinaison</string>
+          <item row="2" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string>Motors</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Minimum PWM value</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="min_pwm"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Maximum PWM value</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="max_pwm"/>
+             </item>
+            </layout>
            </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="inclinaison_max"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="yaw_rate_max_enabled">
-            <property name="text">
-             <string>Max yaw rate</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="yaw_rate_max"/>
           </item>
          </layout>
         </item>
@@ -133,7 +252,7 @@
      <x>0</x>
      <y>0</y>
      <width>1022</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
