@@ -29,6 +29,16 @@ MainWindow::MainWindow(QWidget *parent) :
     command.mutable_command()->set_roll(0.f);
     command.mutable_command()->set_yaw_rate(0.f);
     ui->setupUi(this);
+
+    ui->tab_altitude->setRange(-0.1, 1.1);
+    ui->tab_altitude->setVerticalGrid(.1);
+    ui->tab_pitch->setRange(-3.15, 3.15);
+    ui->tab_pitch->setVerticalGrid(3.14 * 45 / 180);
+    ui->tab_roll->setRange(-3.15, 3.15);
+    ui->tab_roll->setVerticalGrid(3.14 * 45 / 180);
+    ui->tab_yaw_rate->setRange(-5, 5);
+    ui->tab_yaw_rate->setVerticalGrid(1.);
+
     restoreConfig();
     udpSocket.bind(TELEM_PORT);
     joystick.open();
@@ -236,12 +246,17 @@ void MainWindow::timerEvent(QTimerEvent *event)
             }
             ui->tab_altitude->setCommand(altitude);
             attitude->set_altitude(altitude);
+            ui->tab_pitch->setCommand(attitude->pitch());
+            ui->tab_roll->setCommand(attitude->roll());
+            ui->tab_yaw_rate->setCommand(attitude->yaw_rate());
         }
         // Send a command packet
         int size = command.ByteSize();
         char buffer[size];
         assert(command.SerializeToArray(buffer, sizeof(buffer)));
         udpSocket.writeDatagram(buffer, size, birdAddress, COMMAND_PORT);
+        // Refresh the GUI
+        ui->tabWidget->currentWidget()->update();
     } else if (id == calibration_finished_timer_id) {
         killTimer(calibration_finished_timer_id);
         calibration_finished_timer_id = -1;
@@ -323,6 +338,7 @@ void MainWindow::onJoyAxisChanged(qint64 timestamp, int axis, float value)
         attitude->set_yaw_rate(value);
         break;
     }
+    ui->tabWidget->currentWidget()->update();
 }
 
 void MainWindow::onJoyButtonPressed(qint64 timestamp, int button)

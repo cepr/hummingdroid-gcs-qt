@@ -67,7 +67,7 @@
         </layout>
        </item>
        <item>
-        <widget class="PlotArea" name="plot_area" native="true">
+        <widget class="PlotWidget" name="plot_area" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>1</horstretch>
@@ -265,9 +265,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PlotArea</class>
+   <class>PlotWidget</class>
    <extends>QWidget</extends>
-   <header>plotarea.h</header>
+   <header>plotwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

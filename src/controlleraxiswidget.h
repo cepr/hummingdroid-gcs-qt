@@ -16,6 +16,8 @@ class ControllerAxisWidget : public QWidget
 public:
     explicit ControllerAxisWidget(QWidget *parent = 0);
     ~ControllerAxisWidget();
+    void setRange(qreal min, qreal max);
+    void setVerticalGrid(qreal value);
     void setCommand(float value);
     void setAttitude(float value);
     void setControl(float value);

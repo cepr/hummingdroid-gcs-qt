@@ -3,11 +3,18 @@
 
 using namespace org::hummingdroid;
 
+#define COMMAND 0
+#define CURRENT 1
+#define MOTOR 2
+
 ControllerAxisWidget::ControllerAxisWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ControllerAxisWidget)
 {
     ui->setupUi(this);
+    ui->plot_area->series.append(PlotSerie(ui->plot_area, "Target", QColor(0, 0, 255), PlotSerie::LINE));
+    ui->plot_area->series.append(PlotSerie(ui->plot_area, "Sensor", QColor(0, 0, 0), PlotSerie::DOTS));
+    ui->plot_area->series.append(PlotSerie(ui->plot_area, "Motor", QColor(255, 0, 0), PlotSerie::LINE));
     connect(ui->pause, SIGNAL(clicked(bool)), this, SLOT(pause(bool)));
 }
 
@@ -16,22 +23,32 @@ ControllerAxisWidget::~ControllerAxisWidget()
     delete ui;
 }
 
+void ControllerAxisWidget::setRange(qreal min, qreal max)
+{
+    ui->plot_area->setRange(min, max);
+}
+
+void ControllerAxisWidget::setVerticalGrid(qreal value)
+{
+    ui->plot_area->setVerticalGrid(value);
+}
+
 void ControllerAxisWidget::setCommand(float value)
 {
     ui->command->setText(locale.toString(value, 'f', 2));
-    ui->plot_area->set(COMMAND, value);
+    ui->plot_area->series[COMMAND].appendValue(value);
 }
 
 void ControllerAxisWidget::setAttitude(float value)
 {
     ui->current->setText(locale.toString(value, 'f', 2));
-    ui->plot_area->set(CURRENT, value);
+    ui->plot_area->series[CURRENT].appendValue(value);
 }
 
 void ControllerAxisWidget::setControl(float value)
 {
     ui->motors->setText(locale.toString(value));
-    ui->plot_area->set(MOTOR, value);
+    ui->plot_area->series[MOTOR].appendValue(value);
 }
 
 const PID &ControllerAxisWidget::getPID()
@@ -56,8 +73,6 @@ void ControllerAxisWidget::setPID(const PID &from)
 
 void ControllerAxisWidget::pause(bool checked)
 {
-    ui->plot_area->pause(checked);
-    if (ui->pause->isChecked() != checked) {
-        ui->pause->setChecked(checked);
-    }
+    // TODO
+    (void)checked;
 }

@@ -16,18 +16,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     Communication.pb.cc \
     qjoystick.cpp \
-    plotarea.cpp \
-    controlleraxiswidget.cpp
+    controlleraxiswidget.cpp \
+    plotwidget.cpp \
+    plotserie.cpp
 
 HEADERS  += mainwindow.h \
     Communication.pb.h \
     qjoystick.h \
-    plotarea.h \
-    controlleraxiswidget.h
+    controlleraxiswidget.h \
+    plotwidget.h \
+    plotserie.h
 
 FORMS    += mainwindow.ui \
-    controlleraxiswidget.ui \
-    plotarea.ui
+    controlleraxiswidget.ui
 
 OTHER_FILES += \
     Communication.proto
