@@ -20,9 +20,10 @@
 #endif
 
 #include <google/protobuf/generated_message_util.h>
-#include <google/protobuf/message_lite.h>
+#include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
 namespace org {
@@ -36,6 +37,7 @@ void protobuf_ShutdownFile_Communication_2eproto();
 class Attitude;
 class MotorsControl;
 class PID;
+class Switches;
 class CommandPacket;
 class CommandPacket_ControllerConfig;
 class CommandPacket_TelemetryConfig;
@@ -45,7 +47,7 @@ class TelemetryPacket;
 
 // ===================================================================
 
-class Attitude : public ::google::protobuf::MessageLite {
+class Attitude : public ::google::protobuf::Message {
  public:
   Attitude();
   virtual ~Attitude();
@@ -57,24 +59,24 @@ class Attitude : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const Attitude& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const Attitude* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Attitude& default_instance();
 
   void Swap(Attitude* other);
 
   // implements Message ----------------------------------------------
 
   Attitude* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const Attitude& from);
   void MergeFrom(const Attitude& from);
   void Clear();
@@ -85,6 +87,7 @@ class Attitude : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -92,44 +95,65 @@ class Attitude : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
-  // required float altitude = 1;
+  // optional float altitude = 1;
   inline bool has_altitude() const;
   inline void clear_altitude();
   static const int kAltitudeFieldNumber = 1;
   inline float altitude() const;
   inline void set_altitude(float value);
 
-  // required float roll = 2;
+  // optional float roll = 2;
   inline bool has_roll() const;
   inline void clear_roll();
   static const int kRollFieldNumber = 2;
   inline float roll() const;
   inline void set_roll(float value);
 
-  // required float pitch = 3;
+  // optional float roll_rate = 3;
+  inline bool has_roll_rate() const;
+  inline void clear_roll_rate();
+  static const int kRollRateFieldNumber = 3;
+  inline float roll_rate() const;
+  inline void set_roll_rate(float value);
+
+  // optional float pitch = 4;
   inline bool has_pitch() const;
   inline void clear_pitch();
-  static const int kPitchFieldNumber = 3;
+  static const int kPitchFieldNumber = 4;
   inline float pitch() const;
   inline void set_pitch(float value);
 
-  // required float yaw_rate = 4;
+  // optional float pitch_rate = 5;
+  inline bool has_pitch_rate() const;
+  inline void clear_pitch_rate();
+  static const int kPitchRateFieldNumber = 5;
+  inline float pitch_rate() const;
+  inline void set_pitch_rate(float value);
+
+  // optional float yaw = 6;
+  inline bool has_yaw() const;
+  inline void clear_yaw();
+  static const int kYawFieldNumber = 6;
+  inline float yaw() const;
+  inline void set_yaw(float value);
+
+  // optional float yaw_rate = 7;
   inline bool has_yaw_rate() const;
   inline void clear_yaw_rate();
-  static const int kYawRateFieldNumber = 4;
+  static const int kYawRateFieldNumber = 7;
   inline float yaw_rate() const;
   inline void set_yaw_rate(float value);
 
-  // optional double timestamp = 5;
+  // optional double timestamp = 8;
   inline bool has_timestamp() const;
   inline void clear_timestamp();
-  static const int kTimestampFieldNumber = 5;
+  static const int kTimestampFieldNumber = 8;
   inline double timestamp() const;
   inline void set_timestamp(double value);
 
@@ -139,27 +163,34 @@ class Attitude : public ::google::protobuf::MessageLite {
   inline void clear_has_altitude();
   inline void set_has_roll();
   inline void clear_has_roll();
+  inline void set_has_roll_rate();
+  inline void clear_has_roll_rate();
   inline void set_has_pitch();
   inline void clear_has_pitch();
+  inline void set_has_pitch_rate();
+  inline void clear_has_pitch_rate();
+  inline void set_has_yaw();
+  inline void clear_has_yaw();
   inline void set_has_yaw_rate();
   inline void clear_has_yaw_rate();
   inline void set_has_timestamp();
   inline void clear_has_timestamp();
 
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   float altitude_;
   float roll_;
+  float roll_rate_;
   float pitch_;
-  float yaw_rate_;
+  float pitch_rate_;
+  float yaw_;
   double timestamp_;
+  float yaw_rate_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -168,7 +199,7 @@ class Attitude : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class MotorsControl : public ::google::protobuf::MessageLite {
+class MotorsControl : public ::google::protobuf::Message {
  public:
   MotorsControl();
   virtual ~MotorsControl();
@@ -180,24 +211,24 @@ class MotorsControl : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const MotorsControl& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const MotorsControl* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MotorsControl& default_instance();
 
   void Swap(MotorsControl* other);
 
   // implements Message ----------------------------------------------
 
   MotorsControl* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const MotorsControl& from);
   void MergeFrom(const MotorsControl& from);
   void Clear();
@@ -208,6 +239,7 @@ class MotorsControl : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -215,7 +247,7 @@ class MotorsControl : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -269,6 +301,8 @@ class MotorsControl : public ::google::protobuf::MessageLite {
   inline void set_has_timestamp();
   inline void clear_has_timestamp();
 
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   float altitude_throttle_;
   float roll_throttle_;
   float pitch_throttle_;
@@ -278,11 +312,7 @@ class MotorsControl : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -291,7 +321,7 @@ class MotorsControl : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class PID : public ::google::protobuf::MessageLite {
+class PID : public ::google::protobuf::Message {
  public:
   PID();
   virtual ~PID();
@@ -303,24 +333,24 @@ class PID : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const PID& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const PID* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PID& default_instance();
 
   void Swap(PID* other);
 
   // implements Message ----------------------------------------------
 
   PID* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const PID& from);
   void MergeFrom(const PID& from);
   void Clear();
@@ -331,6 +361,7 @@ class PID : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -338,7 +369,7 @@ class PID : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -392,6 +423,8 @@ class PID : public ::google::protobuf::MessageLite {
   inline void set_has_td();
   inline void clear_has_td();
 
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   float kp_;
   float ki_;
   float kd_;
@@ -401,11 +434,7 @@ class PID : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -414,7 +443,119 @@ class PID : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
+class Switches : public ::google::protobuf::Message {
+ public:
+  Switches();
+  virtual ~Switches();
+
+  Switches(const Switches& from);
+
+  inline Switches& operator=(const Switches& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Switches& default_instance();
+
+  void Swap(Switches* other);
+
+  // implements Message ----------------------------------------------
+
+  Switches* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Switches& from);
+  void MergeFrom(const Switches& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required bool front_left = 1;
+  inline bool has_front_left() const;
+  inline void clear_front_left();
+  static const int kFrontLeftFieldNumber = 1;
+  inline bool front_left() const;
+  inline void set_front_left(bool value);
+
+  // required bool front_right = 2;
+  inline bool has_front_right() const;
+  inline void clear_front_right();
+  static const int kFrontRightFieldNumber = 2;
+  inline bool front_right() const;
+  inline void set_front_right(bool value);
+
+  // required bool back_right = 3;
+  inline bool has_back_right() const;
+  inline void clear_back_right();
+  static const int kBackRightFieldNumber = 3;
+  inline bool back_right() const;
+  inline void set_back_right(bool value);
+
+  // required bool back_left = 4;
+  inline bool has_back_left() const;
+  inline void clear_back_left();
+  static const int kBackLeftFieldNumber = 4;
+  inline bool back_left() const;
+  inline void set_back_left(bool value);
+
+  // @@protoc_insertion_point(class_scope:org.hummingdroid.Switches)
+ private:
+  inline void set_has_front_left();
+  inline void clear_has_front_left();
+  inline void set_has_front_right();
+  inline void clear_has_front_right();
+  inline void set_has_back_right();
+  inline void clear_has_back_right();
+  inline void set_has_back_left();
+  inline void clear_has_back_left();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  bool front_left_;
+  bool front_right_;
+  bool back_right_;
+  bool back_left_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_Communication_2eproto();
+  friend void protobuf_AssignDesc_Communication_2eproto();
+  friend void protobuf_ShutdownFile_Communication_2eproto();
+
+  void InitAsDefaultInstance();
+  static Switches* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CommandPacket_ControllerConfig : public ::google::protobuf::Message {
  public:
   CommandPacket_ControllerConfig();
   virtual ~CommandPacket_ControllerConfig();
@@ -426,24 +567,24 @@ class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const CommandPacket_ControllerConfig& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const CommandPacket_ControllerConfig* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommandPacket_ControllerConfig& default_instance();
 
   void Swap(CommandPacket_ControllerConfig* other);
 
   // implements Message ----------------------------------------------
 
   CommandPacket_ControllerConfig* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CommandPacket_ControllerConfig& from);
   void MergeFrom(const CommandPacket_ControllerConfig& from);
   void Clear();
@@ -454,6 +595,7 @@ class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -461,7 +603,7 @@ class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -541,6 +683,8 @@ class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
   inline void set_has_max_yaw_rate();
   inline void clear_has_max_yaw_rate();
 
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::org::hummingdroid::PID* altitude_pid_;
   ::org::hummingdroid::PID* roll_pid_;
   ::org::hummingdroid::PID* pitch_pid_;
@@ -552,11 +696,7 @@ class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -565,7 +705,7 @@ class CommandPacket_ControllerConfig : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
+class CommandPacket_TelemetryConfig : public ::google::protobuf::Message {
  public:
   CommandPacket_TelemetryConfig();
   virtual ~CommandPacket_TelemetryConfig();
@@ -577,24 +717,24 @@ class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const CommandPacket_TelemetryConfig& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const CommandPacket_TelemetryConfig* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommandPacket_TelemetryConfig& default_instance();
 
   void Swap(CommandPacket_TelemetryConfig* other);
 
   // implements Message ----------------------------------------------
 
   CommandPacket_TelemetryConfig* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CommandPacket_TelemetryConfig& from);
   void MergeFrom(const CommandPacket_TelemetryConfig& from);
   void Clear();
@@ -605,6 +745,7 @@ class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -612,7 +753,7 @@ class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -658,6 +799,13 @@ class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
   inline bool controlenabled() const;
   inline void set_controlenabled(bool value);
 
+  // required bool switchesEnabled = 6;
+  inline bool has_switchesenabled() const;
+  inline void clear_switchesenabled();
+  static const int kSwitchesEnabledFieldNumber = 6;
+  inline bool switchesenabled() const;
+  inline void set_switchesenabled(bool value);
+
   // @@protoc_insertion_point(class_scope:org.hummingdroid.CommandPacket.TelemetryConfig)
  private:
   inline void set_has_host();
@@ -670,21 +818,22 @@ class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
   inline void clear_has_attitudeenabled();
   inline void set_has_controlenabled();
   inline void clear_has_controlenabled();
+  inline void set_has_switchesenabled();
+  inline void clear_has_switchesenabled();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* host_;
   ::google::protobuf::int32 port_;
   bool commandenabled_;
   bool attitudeenabled_;
   bool controlenabled_;
+  bool switchesenabled_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -693,7 +842,7 @@ class CommandPacket_TelemetryConfig : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
+class CommandPacket_SensorsConfig : public ::google::protobuf::Message {
  public:
   CommandPacket_SensorsConfig();
   virtual ~CommandPacket_SensorsConfig();
@@ -705,24 +854,24 @@ class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const CommandPacket_SensorsConfig& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const CommandPacket_SensorsConfig* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommandPacket_SensorsConfig& default_instance();
 
   void Swap(CommandPacket_SensorsConfig* other);
 
   // implements Message ----------------------------------------------
 
   CommandPacket_SensorsConfig* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CommandPacket_SensorsConfig& from);
   void MergeFrom(const CommandPacket_SensorsConfig& from);
   void Clear();
@@ -733,6 +882,7 @@ class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -740,7 +890,7 @@ class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -774,19 +924,47 @@ class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
   inline float gyro_yaw_bias() const;
   inline void set_gyro_yaw_bias(float value);
 
-  // required float accel_roll_bias = 5;
+  // required float gyro_roll_gain = 5;
+  inline bool has_gyro_roll_gain() const;
+  inline void clear_gyro_roll_gain();
+  static const int kGyroRollGainFieldNumber = 5;
+  inline float gyro_roll_gain() const;
+  inline void set_gyro_roll_gain(float value);
+
+  // required float gyro_pitch_gain = 6;
+  inline bool has_gyro_pitch_gain() const;
+  inline void clear_gyro_pitch_gain();
+  static const int kGyroPitchGainFieldNumber = 6;
+  inline float gyro_pitch_gain() const;
+  inline void set_gyro_pitch_gain(float value);
+
+  // required float gyro_yaw_gain = 7;
+  inline bool has_gyro_yaw_gain() const;
+  inline void clear_gyro_yaw_gain();
+  static const int kGyroYawGainFieldNumber = 7;
+  inline float gyro_yaw_gain() const;
+  inline void set_gyro_yaw_gain(float value);
+
+  // required float accel_roll_bias = 8;
   inline bool has_accel_roll_bias() const;
   inline void clear_accel_roll_bias();
-  static const int kAccelRollBiasFieldNumber = 5;
+  static const int kAccelRollBiasFieldNumber = 8;
   inline float accel_roll_bias() const;
   inline void set_accel_roll_bias(float value);
 
-  // required float accel_pitch_bias = 6;
+  // required float accel_pitch_bias = 9;
   inline bool has_accel_pitch_bias() const;
   inline void clear_accel_pitch_bias();
-  static const int kAccelPitchBiasFieldNumber = 6;
+  static const int kAccelPitchBiasFieldNumber = 9;
   inline float accel_pitch_bias() const;
   inline void set_accel_pitch_bias(float value);
+
+  // required bool apply_modulo = 10;
+  inline bool has_apply_modulo() const;
+  inline void clear_apply_modulo();
+  static const int kApplyModuloFieldNumber = 10;
+  inline bool apply_modulo() const;
+  inline void set_apply_modulo(bool value);
 
   // @@protoc_insertion_point(class_scope:org.hummingdroid.CommandPacket.SensorsConfig)
  private:
@@ -798,26 +976,36 @@ class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
   inline void clear_has_gyro_pitch_bias();
   inline void set_has_gyro_yaw_bias();
   inline void clear_has_gyro_yaw_bias();
+  inline void set_has_gyro_roll_gain();
+  inline void clear_has_gyro_roll_gain();
+  inline void set_has_gyro_pitch_gain();
+  inline void clear_has_gyro_pitch_gain();
+  inline void set_has_gyro_yaw_gain();
+  inline void clear_has_gyro_yaw_gain();
   inline void set_has_accel_roll_bias();
   inline void clear_has_accel_roll_bias();
   inline void set_has_accel_pitch_bias();
   inline void clear_has_accel_pitch_bias();
+  inline void set_has_apply_modulo();
+  inline void clear_has_apply_modulo();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   float accel_lowpass_constant_;
   float gyro_roll_bias_;
   float gyro_pitch_bias_;
   float gyro_yaw_bias_;
+  float gyro_roll_gain_;
+  float gyro_pitch_gain_;
+  float gyro_yaw_gain_;
   float accel_roll_bias_;
   float accel_pitch_bias_;
+  bool apply_modulo_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(10 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -826,7 +1014,7 @@ class CommandPacket_SensorsConfig : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CommandPacket_MotorsConfig : public ::google::protobuf::MessageLite {
+class CommandPacket_MotorsConfig : public ::google::protobuf::Message {
  public:
   CommandPacket_MotorsConfig();
   virtual ~CommandPacket_MotorsConfig();
@@ -838,24 +1026,24 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const CommandPacket_MotorsConfig& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const CommandPacket_MotorsConfig* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommandPacket_MotorsConfig& default_instance();
 
   void Swap(CommandPacket_MotorsConfig* other);
 
   // implements Message ----------------------------------------------
 
   CommandPacket_MotorsConfig* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CommandPacket_MotorsConfig& from);
   void MergeFrom(const CommandPacket_MotorsConfig& from);
   void Clear();
@@ -866,6 +1054,7 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -873,7 +1062,7 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -900,17 +1089,15 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::MessageLite {
   inline void set_has_max_pwm();
   inline void clear_has_max_pwm();
 
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::google::protobuf::int32 min_pwm_;
   ::google::protobuf::int32 max_pwm_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -919,7 +1106,7 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CommandPacket : public ::google::protobuf::MessageLite {
+class CommandPacket : public ::google::protobuf::Message {
  public:
   CommandPacket();
   virtual ~CommandPacket();
@@ -931,24 +1118,24 @@ class CommandPacket : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const CommandPacket& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const CommandPacket* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommandPacket& default_instance();
 
   void Swap(CommandPacket* other);
 
   // implements Message ----------------------------------------------
 
   CommandPacket* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CommandPacket& from);
   void MergeFrom(const CommandPacket& from);
   void Clear();
@@ -959,6 +1146,7 @@ class CommandPacket : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -966,7 +1154,7 @@ class CommandPacket : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -1035,6 +1223,8 @@ class CommandPacket : public ::google::protobuf::MessageLite {
   inline void set_has_motors_config();
   inline void clear_has_motors_config();
 
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::org::hummingdroid::Attitude* command_;
   ::org::hummingdroid::CommandPacket_ControllerConfig* controller_config_;
   ::org::hummingdroid::CommandPacket_TelemetryConfig* telemetry_config_;
@@ -1044,11 +1234,7 @@ class CommandPacket : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -1057,7 +1243,7 @@ class CommandPacket : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class TelemetryPacket : public ::google::protobuf::MessageLite {
+class TelemetryPacket : public ::google::protobuf::Message {
  public:
   TelemetryPacket();
   virtual ~TelemetryPacket();
@@ -1069,24 +1255,24 @@ class TelemetryPacket : public ::google::protobuf::MessageLite {
     return *this;
   }
 
-  static const TelemetryPacket& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const TelemetryPacket* internal_default_instance() {
-    return default_instance_;
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
   }
-  #endif
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TelemetryPacket& default_instance();
 
   void Swap(TelemetryPacket* other);
 
   // implements Message ----------------------------------------------
 
   TelemetryPacket* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const TelemetryPacket& from);
   void MergeFrom(const TelemetryPacket& from);
   void Clear();
@@ -1097,6 +1283,7 @@ class TelemetryPacket : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1104,7 +1291,7 @@ class TelemetryPacket : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
 
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
 
@@ -1137,6 +1324,15 @@ class TelemetryPacket : public ::google::protobuf::MessageLite {
   inline ::org::hummingdroid::MotorsControl* release_control();
   inline void set_allocated_control(::org::hummingdroid::MotorsControl* control);
 
+  // optional .org.hummingdroid.Switches switches = 4;
+  inline bool has_switches() const;
+  inline void clear_switches();
+  static const int kSwitchesFieldNumber = 4;
+  inline const ::org::hummingdroid::Switches& switches() const;
+  inline ::org::hummingdroid::Switches* mutable_switches();
+  inline ::org::hummingdroid::Switches* release_switches();
+  inline void set_allocated_switches(::org::hummingdroid::Switches* switches);
+
   // @@protoc_insertion_point(class_scope:org.hummingdroid.TelemetryPacket)
  private:
   inline void set_has_command();
@@ -1145,19 +1341,20 @@ class TelemetryPacket : public ::google::protobuf::MessageLite {
   inline void clear_has_attitude();
   inline void set_has_control();
   inline void clear_has_control();
+  inline void set_has_switches();
+  inline void clear_has_switches();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::org::hummingdroid::Attitude* command_;
   ::org::hummingdroid::Attitude* attitude_;
   ::org::hummingdroid::MotorsControl* control_;
+  ::org::hummingdroid::Switches* switches_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
 
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Communication_2eproto_impl();
-  #else
   friend void  protobuf_AddDesc_Communication_2eproto();
-  #endif
   friend void protobuf_AssignDesc_Communication_2eproto();
   friend void protobuf_ShutdownFile_Communication_2eproto();
 
@@ -1171,7 +1368,7 @@ class TelemetryPacket : public ::google::protobuf::MessageLite {
 
 // Attitude
 
-// required float altitude = 1;
+// optional float altitude = 1;
 inline bool Attitude::has_altitude() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1193,7 +1390,7 @@ inline void Attitude::set_altitude(float value) {
   altitude_ = value;
 }
 
-// required float roll = 2;
+// optional float roll = 2;
 inline bool Attitude::has_roll() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1215,15 +1412,37 @@ inline void Attitude::set_roll(float value) {
   roll_ = value;
 }
 
-// required float pitch = 3;
-inline bool Attitude::has_pitch() const {
+// optional float roll_rate = 3;
+inline bool Attitude::has_roll_rate() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Attitude::set_has_pitch() {
+inline void Attitude::set_has_roll_rate() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void Attitude::clear_has_pitch() {
+inline void Attitude::clear_has_roll_rate() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void Attitude::clear_roll_rate() {
+  roll_rate_ = 0;
+  clear_has_roll_rate();
+}
+inline float Attitude::roll_rate() const {
+  return roll_rate_;
+}
+inline void Attitude::set_roll_rate(float value) {
+  set_has_roll_rate();
+  roll_rate_ = value;
+}
+
+// optional float pitch = 4;
+inline bool Attitude::has_pitch() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Attitude::set_has_pitch() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Attitude::clear_has_pitch() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void Attitude::clear_pitch() {
   pitch_ = 0;
@@ -1237,15 +1456,59 @@ inline void Attitude::set_pitch(float value) {
   pitch_ = value;
 }
 
-// required float yaw_rate = 4;
+// optional float pitch_rate = 5;
+inline bool Attitude::has_pitch_rate() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void Attitude::set_has_pitch_rate() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void Attitude::clear_has_pitch_rate() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void Attitude::clear_pitch_rate() {
+  pitch_rate_ = 0;
+  clear_has_pitch_rate();
+}
+inline float Attitude::pitch_rate() const {
+  return pitch_rate_;
+}
+inline void Attitude::set_pitch_rate(float value) {
+  set_has_pitch_rate();
+  pitch_rate_ = value;
+}
+
+// optional float yaw = 6;
+inline bool Attitude::has_yaw() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void Attitude::set_has_yaw() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void Attitude::clear_has_yaw() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void Attitude::clear_yaw() {
+  yaw_ = 0;
+  clear_has_yaw();
+}
+inline float Attitude::yaw() const {
+  return yaw_;
+}
+inline void Attitude::set_yaw(float value) {
+  set_has_yaw();
+  yaw_ = value;
+}
+
+// optional float yaw_rate = 7;
 inline bool Attitude::has_yaw_rate() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void Attitude::set_has_yaw_rate() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void Attitude::clear_has_yaw_rate() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void Attitude::clear_yaw_rate() {
   yaw_rate_ = 0;
@@ -1259,15 +1522,15 @@ inline void Attitude::set_yaw_rate(float value) {
   yaw_rate_ = value;
 }
 
-// optional double timestamp = 5;
+// optional double timestamp = 8;
 inline bool Attitude::has_timestamp() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000080u) != 0;
 }
 inline void Attitude::set_has_timestamp() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000080u;
 }
 inline void Attitude::clear_has_timestamp() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void Attitude::clear_timestamp() {
   timestamp_ = 0;
@@ -1511,6 +1774,98 @@ inline void PID::set_td(float value) {
 
 // -------------------------------------------------------------------
 
+// Switches
+
+// required bool front_left = 1;
+inline bool Switches::has_front_left() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Switches::set_has_front_left() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Switches::clear_has_front_left() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Switches::clear_front_left() {
+  front_left_ = false;
+  clear_has_front_left();
+}
+inline bool Switches::front_left() const {
+  return front_left_;
+}
+inline void Switches::set_front_left(bool value) {
+  set_has_front_left();
+  front_left_ = value;
+}
+
+// required bool front_right = 2;
+inline bool Switches::has_front_right() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Switches::set_has_front_right() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Switches::clear_has_front_right() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Switches::clear_front_right() {
+  front_right_ = false;
+  clear_has_front_right();
+}
+inline bool Switches::front_right() const {
+  return front_right_;
+}
+inline void Switches::set_front_right(bool value) {
+  set_has_front_right();
+  front_right_ = value;
+}
+
+// required bool back_right = 3;
+inline bool Switches::has_back_right() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Switches::set_has_back_right() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Switches::clear_has_back_right() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void Switches::clear_back_right() {
+  back_right_ = false;
+  clear_has_back_right();
+}
+inline bool Switches::back_right() const {
+  return back_right_;
+}
+inline void Switches::set_back_right(bool value) {
+  set_has_back_right();
+  back_right_ = value;
+}
+
+// required bool back_left = 4;
+inline bool Switches::has_back_left() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Switches::set_has_back_left() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Switches::clear_has_back_left() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void Switches::clear_back_left() {
+  back_left_ = false;
+  clear_has_back_left();
+}
+inline bool Switches::back_left() const {
+  return back_left_;
+}
+inline void Switches::set_back_left(bool value) {
+  set_has_back_left();
+  back_left_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // CommandPacket_ControllerConfig
 
 // required .org.hummingdroid.PID altitude_pid = 1;
@@ -1528,11 +1883,7 @@ inline void CommandPacket_ControllerConfig::clear_altitude_pid() {
   clear_has_altitude_pid();
 }
 inline const ::org::hummingdroid::PID& CommandPacket_ControllerConfig::altitude_pid() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return altitude_pid_ != NULL ? *altitude_pid_ : *default_instance().altitude_pid_;
-#else
   return altitude_pid_ != NULL ? *altitude_pid_ : *default_instance_->altitude_pid_;
-#endif
 }
 inline ::org::hummingdroid::PID* CommandPacket_ControllerConfig::mutable_altitude_pid() {
   set_has_altitude_pid();
@@ -1570,11 +1921,7 @@ inline void CommandPacket_ControllerConfig::clear_roll_pid() {
   clear_has_roll_pid();
 }
 inline const ::org::hummingdroid::PID& CommandPacket_ControllerConfig::roll_pid() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return roll_pid_ != NULL ? *roll_pid_ : *default_instance().roll_pid_;
-#else
   return roll_pid_ != NULL ? *roll_pid_ : *default_instance_->roll_pid_;
-#endif
 }
 inline ::org::hummingdroid::PID* CommandPacket_ControllerConfig::mutable_roll_pid() {
   set_has_roll_pid();
@@ -1612,11 +1959,7 @@ inline void CommandPacket_ControllerConfig::clear_pitch_pid() {
   clear_has_pitch_pid();
 }
 inline const ::org::hummingdroid::PID& CommandPacket_ControllerConfig::pitch_pid() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return pitch_pid_ != NULL ? *pitch_pid_ : *default_instance().pitch_pid_;
-#else
   return pitch_pid_ != NULL ? *pitch_pid_ : *default_instance_->pitch_pid_;
-#endif
 }
 inline ::org::hummingdroid::PID* CommandPacket_ControllerConfig::mutable_pitch_pid() {
   set_has_pitch_pid();
@@ -1654,11 +1997,7 @@ inline void CommandPacket_ControllerConfig::clear_yaw_rate_pid() {
   clear_has_yaw_rate_pid();
 }
 inline const ::org::hummingdroid::PID& CommandPacket_ControllerConfig::yaw_rate_pid() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return yaw_rate_pid_ != NULL ? *yaw_rate_pid_ : *default_instance().yaw_rate_pid_;
-#else
   return yaw_rate_pid_ != NULL ? *yaw_rate_pid_ : *default_instance_->yaw_rate_pid_;
-#endif
 }
 inline ::org::hummingdroid::PID* CommandPacket_ControllerConfig::mutable_yaw_rate_pid() {
   set_has_yaw_rate_pid();
@@ -1909,6 +2248,28 @@ inline void CommandPacket_TelemetryConfig::set_controlenabled(bool value) {
   controlenabled_ = value;
 }
 
+// required bool switchesEnabled = 6;
+inline bool CommandPacket_TelemetryConfig::has_switchesenabled() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void CommandPacket_TelemetryConfig::set_has_switchesenabled() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void CommandPacket_TelemetryConfig::clear_has_switchesenabled() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void CommandPacket_TelemetryConfig::clear_switchesenabled() {
+  switchesenabled_ = false;
+  clear_has_switchesenabled();
+}
+inline bool CommandPacket_TelemetryConfig::switchesenabled() const {
+  return switchesenabled_;
+}
+inline void CommandPacket_TelemetryConfig::set_switchesenabled(bool value) {
+  set_has_switchesenabled();
+  switchesenabled_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // CommandPacket_SensorsConfig
@@ -2001,15 +2362,81 @@ inline void CommandPacket_SensorsConfig::set_gyro_yaw_bias(float value) {
   gyro_yaw_bias_ = value;
 }
 
-// required float accel_roll_bias = 5;
-inline bool CommandPacket_SensorsConfig::has_accel_roll_bias() const {
+// required float gyro_roll_gain = 5;
+inline bool CommandPacket_SensorsConfig::has_gyro_roll_gain() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void CommandPacket_SensorsConfig::set_has_accel_roll_bias() {
+inline void CommandPacket_SensorsConfig::set_has_gyro_roll_gain() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void CommandPacket_SensorsConfig::clear_has_accel_roll_bias() {
+inline void CommandPacket_SensorsConfig::clear_has_gyro_roll_gain() {
   _has_bits_[0] &= ~0x00000010u;
+}
+inline void CommandPacket_SensorsConfig::clear_gyro_roll_gain() {
+  gyro_roll_gain_ = 0;
+  clear_has_gyro_roll_gain();
+}
+inline float CommandPacket_SensorsConfig::gyro_roll_gain() const {
+  return gyro_roll_gain_;
+}
+inline void CommandPacket_SensorsConfig::set_gyro_roll_gain(float value) {
+  set_has_gyro_roll_gain();
+  gyro_roll_gain_ = value;
+}
+
+// required float gyro_pitch_gain = 6;
+inline bool CommandPacket_SensorsConfig::has_gyro_pitch_gain() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void CommandPacket_SensorsConfig::set_has_gyro_pitch_gain() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void CommandPacket_SensorsConfig::clear_has_gyro_pitch_gain() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void CommandPacket_SensorsConfig::clear_gyro_pitch_gain() {
+  gyro_pitch_gain_ = 0;
+  clear_has_gyro_pitch_gain();
+}
+inline float CommandPacket_SensorsConfig::gyro_pitch_gain() const {
+  return gyro_pitch_gain_;
+}
+inline void CommandPacket_SensorsConfig::set_gyro_pitch_gain(float value) {
+  set_has_gyro_pitch_gain();
+  gyro_pitch_gain_ = value;
+}
+
+// required float gyro_yaw_gain = 7;
+inline bool CommandPacket_SensorsConfig::has_gyro_yaw_gain() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void CommandPacket_SensorsConfig::set_has_gyro_yaw_gain() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void CommandPacket_SensorsConfig::clear_has_gyro_yaw_gain() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void CommandPacket_SensorsConfig::clear_gyro_yaw_gain() {
+  gyro_yaw_gain_ = 0;
+  clear_has_gyro_yaw_gain();
+}
+inline float CommandPacket_SensorsConfig::gyro_yaw_gain() const {
+  return gyro_yaw_gain_;
+}
+inline void CommandPacket_SensorsConfig::set_gyro_yaw_gain(float value) {
+  set_has_gyro_yaw_gain();
+  gyro_yaw_gain_ = value;
+}
+
+// required float accel_roll_bias = 8;
+inline bool CommandPacket_SensorsConfig::has_accel_roll_bias() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void CommandPacket_SensorsConfig::set_has_accel_roll_bias() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void CommandPacket_SensorsConfig::clear_has_accel_roll_bias() {
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void CommandPacket_SensorsConfig::clear_accel_roll_bias() {
   accel_roll_bias_ = 0;
@@ -2023,15 +2450,15 @@ inline void CommandPacket_SensorsConfig::set_accel_roll_bias(float value) {
   accel_roll_bias_ = value;
 }
 
-// required float accel_pitch_bias = 6;
+// required float accel_pitch_bias = 9;
 inline bool CommandPacket_SensorsConfig::has_accel_pitch_bias() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000100u) != 0;
 }
 inline void CommandPacket_SensorsConfig::set_has_accel_pitch_bias() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000100u;
 }
 inline void CommandPacket_SensorsConfig::clear_has_accel_pitch_bias() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline void CommandPacket_SensorsConfig::clear_accel_pitch_bias() {
   accel_pitch_bias_ = 0;
@@ -2043,6 +2470,28 @@ inline float CommandPacket_SensorsConfig::accel_pitch_bias() const {
 inline void CommandPacket_SensorsConfig::set_accel_pitch_bias(float value) {
   set_has_accel_pitch_bias();
   accel_pitch_bias_ = value;
+}
+
+// required bool apply_modulo = 10;
+inline bool CommandPacket_SensorsConfig::has_apply_modulo() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void CommandPacket_SensorsConfig::set_has_apply_modulo() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void CommandPacket_SensorsConfig::clear_has_apply_modulo() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void CommandPacket_SensorsConfig::clear_apply_modulo() {
+  apply_modulo_ = false;
+  clear_has_apply_modulo();
+}
+inline bool CommandPacket_SensorsConfig::apply_modulo() const {
+  return apply_modulo_;
+}
+inline void CommandPacket_SensorsConfig::set_apply_modulo(bool value) {
+  set_has_apply_modulo();
+  apply_modulo_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -2112,11 +2561,7 @@ inline void CommandPacket::clear_command() {
   clear_has_command();
 }
 inline const ::org::hummingdroid::Attitude& CommandPacket::command() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return command_ != NULL ? *command_ : *default_instance().command_;
-#else
   return command_ != NULL ? *command_ : *default_instance_->command_;
-#endif
 }
 inline ::org::hummingdroid::Attitude* CommandPacket::mutable_command() {
   set_has_command();
@@ -2154,11 +2599,7 @@ inline void CommandPacket::clear_controller_config() {
   clear_has_controller_config();
 }
 inline const ::org::hummingdroid::CommandPacket_ControllerConfig& CommandPacket::controller_config() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return controller_config_ != NULL ? *controller_config_ : *default_instance().controller_config_;
-#else
   return controller_config_ != NULL ? *controller_config_ : *default_instance_->controller_config_;
-#endif
 }
 inline ::org::hummingdroid::CommandPacket_ControllerConfig* CommandPacket::mutable_controller_config() {
   set_has_controller_config();
@@ -2196,11 +2637,7 @@ inline void CommandPacket::clear_telemetry_config() {
   clear_has_telemetry_config();
 }
 inline const ::org::hummingdroid::CommandPacket_TelemetryConfig& CommandPacket::telemetry_config() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return telemetry_config_ != NULL ? *telemetry_config_ : *default_instance().telemetry_config_;
-#else
   return telemetry_config_ != NULL ? *telemetry_config_ : *default_instance_->telemetry_config_;
-#endif
 }
 inline ::org::hummingdroid::CommandPacket_TelemetryConfig* CommandPacket::mutable_telemetry_config() {
   set_has_telemetry_config();
@@ -2238,11 +2675,7 @@ inline void CommandPacket::clear_sensors_config() {
   clear_has_sensors_config();
 }
 inline const ::org::hummingdroid::CommandPacket_SensorsConfig& CommandPacket::sensors_config() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return sensors_config_ != NULL ? *sensors_config_ : *default_instance().sensors_config_;
-#else
   return sensors_config_ != NULL ? *sensors_config_ : *default_instance_->sensors_config_;
-#endif
 }
 inline ::org::hummingdroid::CommandPacket_SensorsConfig* CommandPacket::mutable_sensors_config() {
   set_has_sensors_config();
@@ -2280,11 +2713,7 @@ inline void CommandPacket::clear_motors_config() {
   clear_has_motors_config();
 }
 inline const ::org::hummingdroid::CommandPacket_MotorsConfig& CommandPacket::motors_config() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return motors_config_ != NULL ? *motors_config_ : *default_instance().motors_config_;
-#else
   return motors_config_ != NULL ? *motors_config_ : *default_instance_->motors_config_;
-#endif
 }
 inline ::org::hummingdroid::CommandPacket_MotorsConfig* CommandPacket::mutable_motors_config() {
   set_has_motors_config();
@@ -2326,11 +2755,7 @@ inline void TelemetryPacket::clear_command() {
   clear_has_command();
 }
 inline const ::org::hummingdroid::Attitude& TelemetryPacket::command() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return command_ != NULL ? *command_ : *default_instance().command_;
-#else
   return command_ != NULL ? *command_ : *default_instance_->command_;
-#endif
 }
 inline ::org::hummingdroid::Attitude* TelemetryPacket::mutable_command() {
   set_has_command();
@@ -2368,11 +2793,7 @@ inline void TelemetryPacket::clear_attitude() {
   clear_has_attitude();
 }
 inline const ::org::hummingdroid::Attitude& TelemetryPacket::attitude() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return attitude_ != NULL ? *attitude_ : *default_instance().attitude_;
-#else
   return attitude_ != NULL ? *attitude_ : *default_instance_->attitude_;
-#endif
 }
 inline ::org::hummingdroid::Attitude* TelemetryPacket::mutable_attitude() {
   set_has_attitude();
@@ -2410,11 +2831,7 @@ inline void TelemetryPacket::clear_control() {
   clear_has_control();
 }
 inline const ::org::hummingdroid::MotorsControl& TelemetryPacket::control() const {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  return control_ != NULL ? *control_ : *default_instance().control_;
-#else
   return control_ != NULL ? *control_ : *default_instance_->control_;
-#endif
 }
 inline ::org::hummingdroid::MotorsControl* TelemetryPacket::mutable_control() {
   set_has_control();
@@ -2437,11 +2854,58 @@ inline void TelemetryPacket::set_allocated_control(::org::hummingdroid::MotorsCo
   }
 }
 
+// optional .org.hummingdroid.Switches switches = 4;
+inline bool TelemetryPacket::has_switches() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void TelemetryPacket::set_has_switches() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void TelemetryPacket::clear_has_switches() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void TelemetryPacket::clear_switches() {
+  if (switches_ != NULL) switches_->::org::hummingdroid::Switches::Clear();
+  clear_has_switches();
+}
+inline const ::org::hummingdroid::Switches& TelemetryPacket::switches() const {
+  return switches_ != NULL ? *switches_ : *default_instance_->switches_;
+}
+inline ::org::hummingdroid::Switches* TelemetryPacket::mutable_switches() {
+  set_has_switches();
+  if (switches_ == NULL) switches_ = new ::org::hummingdroid::Switches;
+  return switches_;
+}
+inline ::org::hummingdroid::Switches* TelemetryPacket::release_switches() {
+  clear_has_switches();
+  ::org::hummingdroid::Switches* temp = switches_;
+  switches_ = NULL;
+  return temp;
+}
+inline void TelemetryPacket::set_allocated_switches(::org::hummingdroid::Switches* switches) {
+  delete switches_;
+  switches_ = switches;
+  if (switches) {
+    set_has_switches();
+  } else {
+    clear_has_switches();
+  }
+}
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace hummingdroid
 }  // namespace org
+
+#ifndef SWIG
+namespace google {
+namespace protobuf {
+
+
+}  // namespace google
+}  // namespace protobuf
+#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 

@@ -60,8 +60,8 @@ void PlotWidget::paintEvent(QPaintEvent *)
             } else {
                 painter.setPen(axis_pen);
             }
-            QRect grid_label(width()-30, y - 10, 30, 20);
-            painter.drawLine(0, y, width() - 30, y);
+            QRect grid_label(width()-40, y - 10, 40, 20);
+            painter.drawLine(0, y, width() - 40, y);
             painter.setPen(grid_label_pen);
             painter.drawText(grid_label, Qt::AlignRight | Qt::AlignLeft, QString::number(vertical_grid_interval * i));
         }

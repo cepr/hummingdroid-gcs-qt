@@ -161,21 +161,7 @@
                 </widget>
                </item>
                <item row="3" column="1">
-                <widget class="QPushButton" name="calibrate_gyro">
-                 <property name="text">
-                  <string>Calibrate</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="label_6">
-                 <property name="text">
-                  <string>Accel roll bias</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="4">
-                <widget class="QPushButton" name="calibrate_accel">
+                <widget class="QPushButton" name="calibrate_gyro_bias">
                  <property name="text">
                   <string>Calibrate</string>
                  </property>
@@ -188,23 +174,81 @@
                  </property>
                 </widget>
                </item>
+               <item row="3" column="6">
+                <widget class="QPushButton" name="calibrate_accel">
+                 <property name="text">
+                  <string>Calibrate</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Accel roll bias</string>
+                 </property>
+                </widget>
+               </item>
                <item row="2" column="1">
                 <widget class="QLineEdit" name="gyro_yaw_bias"/>
                </item>
-               <item row="0" column="4">
+               <item row="0" column="6">
                 <widget class="QLineEdit" name="accel_roll_bias"/>
                </item>
-               <item row="1" column="2">
+               <item row="1" column="4">
                 <widget class="QLabel" name="label_7">
                  <property name="text">
                   <string>Accel pitch bias</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="4">
+               <item row="1" column="6">
                 <widget class="QLineEdit" name="accel_pitch_bias"/>
                </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>Gyro roll gain</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Gyro pitch gain</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2">
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Gyro yaw gain</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLineEdit" name="gyro_roll_gain"/>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLineEdit" name="gyro_pitch_gain"/>
+               </item>
+               <item row="2" column="3">
+                <widget class="QLineEdit" name="gyro_yaw_gain"/>
+               </item>
+               <item row="3" column="3">
+                <widget class="QPushButton" name="calibrate_gyro_gain">
+                 <property name="text">
+                  <string>Calibrate</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
+             </item>
+             <item row="2" column="0">
+              <widget class="QCheckBox" name="apply_modulo">
+               <property name="text">
+                <string>Apply a modulo 2*PI to the angles</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>

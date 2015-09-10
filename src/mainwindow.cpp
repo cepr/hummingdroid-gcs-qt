@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDateTime>
 #include <QSettings>
+#include <qmath.h>
 
 #define COMMAND_PORT 49152
 #define TELEM_PORT 49153
@@ -10,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     locale(QLocale::system()),
+    midi_mixer("/dev/snd/midiC1D0"),
     command_timer_id(-1),
     config_timer_id(-1),
     emergency(false),
@@ -41,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     restoreConfig();
     udpSocket.bind(TELEM_PORT);
-    joystick.open();
+    //joystick.open();
     connect(&udpSocket, SIGNAL(readyRead()),
                 this, SLOT(readPendingDatagrams()));
     connect(&joystick, SIGNAL(onJoyAxisChanged(qint64, int,float)),
@@ -55,11 +57,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->action_Save, SIGNAL(triggered()),
             this, SLOT(saveConfig()));
     connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
-    connect(ui->calibrate_gyro, SIGNAL(clicked()), this, SLOT(onCalibrateGyro()));
+    connect(ui->calibrate_gyro_bias, SIGNAL(clicked()), this, SLOT(onCalibrateGyroBias()));
+    connect(ui->calibrate_gyro_gain, SIGNAL(clicked()), this, SLOT(onCalibrateGyroGain()));
     connect(ui->calibrate_accel, SIGNAL(clicked()), this, SLOT(onCalibrateAccel()));
+    connect(&midi_mixer, SIGNAL(onSliderValueChanged(int,float)), this, SLOT(setSliderValue(int,float)));
 
     // Resolve the bird host name
-    QHostInfo::lookupHost("quadcopter.local", this, SLOT(onHostnameAddressResolved(QHostInfo)));
+    QHostInfo::lookupHost("192.168.1.63", this, SLOT(onHostnameAddressResolved(QHostInfo)));
 
     // Sending command every 20ms
     command_timer_id = startTimer(20);
@@ -98,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
         tc->set_commandenabled(true);
         tc->set_attitudeenabled(true);
         tc->set_controlenabled(true);
+        tc->set_switchesenabled(false);
 
         CommandPacket::MotorsConfig *mc =
                 emergency_config.mutable_motors_config();
@@ -114,6 +119,7 @@ MainWindow::MainWindow(QWidget *parent) :
         tc->set_commandenabled(true);
         tc->set_attitudeenabled(true);
         tc->set_controlenabled(true);
+        tc->set_switchesenabled(false);
     }
 
     log.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -204,10 +210,14 @@ void MainWindow::sendConfig()
             sc->set_accel_lowpass_constant(ui->accel_low_pass->text().toFloat());
         }
         sc->set_gyro_roll_bias(ui->gyro_roll_bias->text().toFloat());
+        sc->set_gyro_roll_gain(ui->gyro_roll_gain->text().toFloat());
         sc->set_gyro_pitch_bias(ui->gyro_pitch_bias->text().toFloat());
+        sc->set_gyro_pitch_gain(ui->gyro_pitch_gain->text().toFloat());
         sc->set_gyro_yaw_bias(ui->gyro_yaw_bias->text().toFloat());
+        sc->set_gyro_yaw_gain(ui->gyro_yaw_gain->text().toFloat());
         sc->set_accel_roll_bias(ui->accel_roll_bias->text().toFloat());
         sc->set_accel_pitch_bias(ui->accel_pitch_bias->text().toFloat());
+        sc->set_apply_modulo(ui->apply_modulo->isChecked());
 
         // Motors settings
         CommandPacket::MotorsConfig *mc = config.mutable_motors_config();
@@ -282,7 +292,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
         }
         sc->set_accel_lowpass_constant(ui->accel_low_pass->text().toFloat()); // restore the accelerometer
         calibrating = 0;
-        ui->calibrate_gyro->setEnabled(true);
+        ui->calibrate_gyro_bias->setEnabled(true);
+        ui->calibrate_gyro_gain->setEnabled(true);
         ui->calibrate_accel->setEnabled(true);
         ui->accel_low_pass->setEnabled(true);
     }
@@ -398,8 +409,12 @@ void MainWindow::restoreConfig()
         ui->gyro_roll_bias->setText(QString::number(config.sensors_config().gyro_roll_bias()));
         ui->gyro_pitch_bias->setText(QString::number(config.sensors_config().gyro_pitch_bias()));
         ui->gyro_yaw_bias->setText(QString::number(config.sensors_config().gyro_yaw_bias()));
+        ui->gyro_roll_gain->setText(QString::number(config.sensors_config().gyro_roll_gain()));
+        ui->gyro_pitch_gain->setText(QString::number(config.sensors_config().gyro_pitch_gain()));
+        ui->gyro_yaw_gain->setText(QString::number(config.sensors_config().gyro_yaw_gain()));
         ui->accel_roll_bias->setText(QString::number(config.sensors_config().accel_roll_bias()));
         ui->accel_pitch_bias->setText(QString::number(config.sensors_config().accel_pitch_bias()));
+        ui->apply_modulo->setChecked(config.sensors_config().apply_modulo());
     }
     if (config.has_motors_config()) {
         ui->min_pwm->setText(QString::number(config.motors_config().min_pwm()));
@@ -423,9 +438,10 @@ void MainWindow::onTabChanged(int tab)
     ui->tab_yaw_rate->pause(tab != 3);
 }
 
-void MainWindow::onCalibrateGyro()
+void MainWindow::onCalibrateGyroBias()
 {
-    ui->calibrate_gyro->setEnabled(false);
+    ui->calibrate_gyro_bias->setEnabled(false);
+    ui->calibrate_gyro_gain->setEnabled(false);
     ui->calibrate_accel->setEnabled(false);
     sum_gyro_yaw = 0.;
     calibration_measures = 0;
@@ -439,9 +455,17 @@ void MainWindow::onCalibrateGyro()
     calibration_finished_timer_id = startTimer(10000);
 }
 
+void MainWindow::onCalibrateGyroGain()
+{
+    // The user must rotate the vehicule one full positive rotation on the roll and on the pitch axis
+    ui->gyro_roll_gain->setText(QString::number(M_PI * 2 / latest_telem.attitude().roll()));
+    ui->gyro_pitch_gain->setText(QString::number(M_PI * 2 / latest_telem.attitude().pitch()));
+}
+
 void MainWindow::onCalibrateAccel()
 {
-    ui->calibrate_gyro->setEnabled(false);
+    ui->calibrate_gyro_bias->setEnabled(false);
+    ui->calibrate_gyro_gain->setEnabled(false);
     ui->calibrate_accel->setEnabled(false);
     sum_accel_roll = 0.;
     sum_accel_pitch = 0.;
@@ -453,4 +477,19 @@ void MainWindow::onCalibrateAccel()
     calibrating = 2;
     sendConfig();
     calibration_finished_timer_id = startTimer(10000);
+}
+
+void MainWindow::setSliderValue(int index, float value)
+{
+    switch(index) {
+    case 1:
+    {
+        Attitude *attitude = command.mutable_command();
+        attitude->set_altitude(value);
+        break;
+    }
+    default:
+        // ignore
+        ;
+    }
 }

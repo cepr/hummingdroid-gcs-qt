@@ -10,38 +10,370 @@
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/reflection_ops.h>
+#include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
 namespace org {
 namespace hummingdroid {
 
-void protobuf_ShutdownFile_Communication_2eproto() {
-  delete Attitude::default_instance_;
-  delete MotorsControl::default_instance_;
-  delete PID::default_instance_;
-  delete CommandPacket::default_instance_;
-  delete CommandPacket_ControllerConfig::default_instance_;
-  delete CommandPacket_TelemetryConfig::default_instance_;
-  delete CommandPacket_SensorsConfig::default_instance_;
-  delete CommandPacket_MotorsConfig::default_instance_;
-  delete TelemetryPacket::default_instance_;
+namespace {
+
+const ::google::protobuf::Descriptor* Attitude_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Attitude_reflection_ = NULL;
+const ::google::protobuf::Descriptor* MotorsControl_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  MotorsControl_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PID_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PID_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Switches_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Switches_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommandPacket_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommandPacket_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommandPacket_ControllerConfig_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommandPacket_ControllerConfig_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommandPacket_TelemetryConfig_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommandPacket_TelemetryConfig_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommandPacket_SensorsConfig_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommandPacket_SensorsConfig_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommandPacket_MotorsConfig_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommandPacket_MotorsConfig_reflection_ = NULL;
+const ::google::protobuf::Descriptor* TelemetryPacket_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  TelemetryPacket_reflection_ = NULL;
+
+}  // namespace
+
+
+void protobuf_AssignDesc_Communication_2eproto() {
+  protobuf_AddDesc_Communication_2eproto();
+  const ::google::protobuf::FileDescriptor* file =
+    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
+      "Communication.proto");
+  GOOGLE_CHECK(file != NULL);
+  Attitude_descriptor_ = file->message_type(0);
+  static const int Attitude_offsets_[8] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, altitude_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, roll_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, roll_rate_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, pitch_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, pitch_rate_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, yaw_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, yaw_rate_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, timestamp_),
+  };
+  Attitude_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      Attitude_descriptor_,
+      Attitude::default_instance_,
+      Attitude_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Attitude, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(Attitude));
+  MotorsControl_descriptor_ = file->message_type(1);
+  static const int MotorsControl_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, altitude_throttle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, roll_throttle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, pitch_throttle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, yaw_throttle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, timestamp_),
+  };
+  MotorsControl_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      MotorsControl_descriptor_,
+      MotorsControl::default_instance_,
+      MotorsControl_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorsControl, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(MotorsControl));
+  PID_descriptor_ = file->message_type(2);
+  static const int PID_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, kp_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, ki_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, kd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, ko_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, td_),
+  };
+  PID_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      PID_descriptor_,
+      PID::default_instance_,
+      PID_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PID, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(PID));
+  Switches_descriptor_ = file->message_type(3);
+  static const int Switches_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Switches, front_left_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Switches, front_right_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Switches, back_right_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Switches, back_left_),
+  };
+  Switches_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      Switches_descriptor_,
+      Switches::default_instance_,
+      Switches_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Switches, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Switches, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(Switches));
+  CommandPacket_descriptor_ = file->message_type(4);
+  static const int CommandPacket_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, command_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, controller_config_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, telemetry_config_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, sensors_config_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, motors_config_),
+  };
+  CommandPacket_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CommandPacket_descriptor_,
+      CommandPacket::default_instance_,
+      CommandPacket_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CommandPacket));
+  CommandPacket_ControllerConfig_descriptor_ = CommandPacket_descriptor_->nested_type(0);
+  static const int CommandPacket_ControllerConfig_offsets_[7] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, altitude_pid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, roll_pid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, pitch_pid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, yaw_rate_pid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, max_inclinaison_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, max_altitude_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, max_yaw_rate_),
+  };
+  CommandPacket_ControllerConfig_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CommandPacket_ControllerConfig_descriptor_,
+      CommandPacket_ControllerConfig::default_instance_,
+      CommandPacket_ControllerConfig_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_ControllerConfig, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CommandPacket_ControllerConfig));
+  CommandPacket_TelemetryConfig_descriptor_ = CommandPacket_descriptor_->nested_type(1);
+  static const int CommandPacket_TelemetryConfig_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, host_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, port_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, commandenabled_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, attitudeenabled_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, controlenabled_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, switchesenabled_),
+  };
+  CommandPacket_TelemetryConfig_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CommandPacket_TelemetryConfig_descriptor_,
+      CommandPacket_TelemetryConfig::default_instance_,
+      CommandPacket_TelemetryConfig_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_TelemetryConfig, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CommandPacket_TelemetryConfig));
+  CommandPacket_SensorsConfig_descriptor_ = CommandPacket_descriptor_->nested_type(2);
+  static const int CommandPacket_SensorsConfig_offsets_[10] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, accel_lowpass_constant_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, gyro_roll_bias_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, gyro_pitch_bias_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, gyro_yaw_bias_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, gyro_roll_gain_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, gyro_pitch_gain_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, gyro_yaw_gain_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, accel_roll_bias_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, accel_pitch_bias_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, apply_modulo_),
+  };
+  CommandPacket_SensorsConfig_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CommandPacket_SensorsConfig_descriptor_,
+      CommandPacket_SensorsConfig::default_instance_,
+      CommandPacket_SensorsConfig_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_SensorsConfig, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CommandPacket_SensorsConfig));
+  CommandPacket_MotorsConfig_descriptor_ = CommandPacket_descriptor_->nested_type(3);
+  static const int CommandPacket_MotorsConfig_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_MotorsConfig, min_pwm_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_MotorsConfig, max_pwm_),
+  };
+  CommandPacket_MotorsConfig_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CommandPacket_MotorsConfig_descriptor_,
+      CommandPacket_MotorsConfig::default_instance_,
+      CommandPacket_MotorsConfig_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_MotorsConfig, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommandPacket_MotorsConfig, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CommandPacket_MotorsConfig));
+  TelemetryPacket_descriptor_ = file->message_type(5);
+  static const int TelemetryPacket_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TelemetryPacket, command_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TelemetryPacket, attitude_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TelemetryPacket, control_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TelemetryPacket, switches_),
+  };
+  TelemetryPacket_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      TelemetryPacket_descriptor_,
+      TelemetryPacket::default_instance_,
+      TelemetryPacket_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TelemetryPacket, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TelemetryPacket, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(TelemetryPacket));
 }
 
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-void protobuf_AddDesc_Communication_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
+namespace {
 
-#else
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+inline void protobuf_AssignDescriptorsOnce() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
+                 &protobuf_AssignDesc_Communication_2eproto);
+}
+
+void protobuf_RegisterTypes(const ::std::string&) {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    Attitude_descriptor_, &Attitude::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    MotorsControl_descriptor_, &MotorsControl::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    PID_descriptor_, &PID::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    Switches_descriptor_, &Switches::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CommandPacket_descriptor_, &CommandPacket::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CommandPacket_ControllerConfig_descriptor_, &CommandPacket_ControllerConfig::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CommandPacket_TelemetryConfig_descriptor_, &CommandPacket_TelemetryConfig::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CommandPacket_SensorsConfig_descriptor_, &CommandPacket_SensorsConfig::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CommandPacket_MotorsConfig_descriptor_, &CommandPacket_MotorsConfig::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    TelemetryPacket_descriptor_, &TelemetryPacket::default_instance());
+}
+
+}  // namespace
+
+void protobuf_ShutdownFile_Communication_2eproto() {
+  delete Attitude::default_instance_;
+  delete Attitude_reflection_;
+  delete MotorsControl::default_instance_;
+  delete MotorsControl_reflection_;
+  delete PID::default_instance_;
+  delete PID_reflection_;
+  delete Switches::default_instance_;
+  delete Switches_reflection_;
+  delete CommandPacket::default_instance_;
+  delete CommandPacket_reflection_;
+  delete CommandPacket_ControllerConfig::default_instance_;
+  delete CommandPacket_ControllerConfig_reflection_;
+  delete CommandPacket_TelemetryConfig::default_instance_;
+  delete CommandPacket_TelemetryConfig_reflection_;
+  delete CommandPacket_SensorsConfig::default_instance_;
+  delete CommandPacket_SensorsConfig_reflection_;
+  delete CommandPacket_MotorsConfig::default_instance_;
+  delete CommandPacket_MotorsConfig_reflection_;
+  delete TelemetryPacket::default_instance_;
+  delete TelemetryPacket_reflection_;
+}
+
 void protobuf_AddDesc_Communication_2eproto() {
   static bool already_here = false;
   if (already_here) return;
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#endif
+  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
+    "\n\023Communication.proto\022\020org.hummingdroid\""
+    "\222\001\n\010Attitude\022\020\n\010altitude\030\001 \001(\002\022\014\n\004roll\030\002"
+    " \001(\002\022\021\n\troll_rate\030\003 \001(\002\022\r\n\005pitch\030\004 \001(\002\022\022"
+    "\n\npitch_rate\030\005 \001(\002\022\013\n\003yaw\030\006 \001(\002\022\020\n\010yaw_r"
+    "ate\030\007 \001(\002\022\021\n\ttimestamp\030\010 \001(\001\"\202\001\n\rMotorsC"
+    "ontrol\022\031\n\021altitude_throttle\030\001 \002(\002\022\025\n\rrol"
+    "l_throttle\030\002 \002(\002\022\026\n\016pitch_throttle\030\003 \002(\002"
+    "\022\024\n\014yaw_throttle\030\004 \002(\002\022\021\n\ttimestamp\030\005 \001("
+    "\001\"A\n\003PID\022\n\n\002Kp\030\001 \002(\002\022\n\n\002Ki\030\002 \002(\002\022\n\n\002Kd\030\003"
+    " \002(\002\022\n\n\002Ko\030\004 \002(\002\022\n\n\002Td\030\005 \002(\002\"Z\n\010Switches"
+    "\022\022\n\nfront_left\030\001 \002(\010\022\023\n\013front_right\030\002 \002("
+    "\010\022\022\n\nback_right\030\003 \002(\010\022\021\n\tback_left\030\004 \002(\010"
+    "\"\266\010\n\rCommandPacket\022+\n\007command\030\001 \001(\0132\032.or"
+    "g.hummingdroid.Attitude\022K\n\021controller_co"
+    "nfig\030\002 \001(\01320.org.hummingdroid.CommandPac"
+    "ket.ControllerConfig\022I\n\020telemetry_config"
+    "\030\003 \001(\0132/.org.hummingdroid.CommandPacket."
+    "TelemetryConfig\022E\n\016sensors_config\030\004 \001(\0132"
+    "-.org.hummingdroid.CommandPacket.Sensors"
+    "Config\022C\n\rmotors_config\030\005 \001(\0132,.org.humm"
+    "ingdroid.CommandPacket.MotorsConfig\032\204\002\n\020"
+    "ControllerConfig\022+\n\014altitude_pid\030\001 \002(\0132\025"
+    ".org.hummingdroid.PID\022\'\n\010roll_pid\030\002 \002(\0132"
+    "\025.org.hummingdroid.PID\022(\n\tpitch_pid\030\003 \002("
+    "\0132\025.org.hummingdroid.PID\022+\n\014yaw_rate_pid"
+    "\030\004 \002(\0132\025.org.hummingdroid.PID\022\027\n\017max_inc"
+    "linaison\030\005 \001(\002\022\024\n\014max_altitude\030\006 \001(\002\022\024\n\014"
+    "max_yaw_rate\030\007 \001(\002\032\217\001\n\017TelemetryConfig\022\014"
+    "\n\004host\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\022\026\n\016commandEna"
+    "bled\030\003 \002(\010\022\027\n\017attitudeEnabled\030\004 \002(\010\022\026\n\016c"
+    "ontrolEnabled\030\005 \002(\010\022\027\n\017switchesEnabled\030\006"
+    " \002(\010\032\210\002\n\rSensorsConfig\022\036\n\026accel_lowpass_"
+    "constant\030\001 \002(\002\022\026\n\016gyro_roll_bias\030\002 \002(\002\022\027"
+    "\n\017gyro_pitch_bias\030\003 \002(\002\022\025\n\rgyro_yaw_bias"
+    "\030\004 \002(\002\022\026\n\016gyro_roll_gain\030\005 \002(\002\022\027\n\017gyro_p"
+    "itch_gain\030\006 \002(\002\022\025\n\rgyro_yaw_gain\030\007 \002(\002\022\027"
+    "\n\017accel_roll_bias\030\010 \002(\002\022\030\n\020accel_pitch_b"
+    "ias\030\t \002(\002\022\024\n\014apply_modulo\030\n \002(\010\0320\n\014Motor"
+    "sConfig\022\017\n\007min_pwm\030\001 \002(\005\022\017\n\007max_pwm\030\002 \002("
+    "\005\"\314\001\n\017TelemetryPacket\022+\n\007command\030\001 \001(\0132\032"
+    ".org.hummingdroid.Attitude\022,\n\010attitude\030\002"
+    " \001(\0132\032.org.hummingdroid.Attitude\0220\n\007cont"
+    "rol\030\003 \001(\0132\037.org.hummingdroid.MotorsContr"
+    "ol\022,\n\010switches\030\004 \001(\0132\032.org.hummingdroid."
+    "Switches", 1768);
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
+    "Communication.proto", &protobuf_RegisterTypes);
   Attitude::default_instance_ = new Attitude();
   MotorsControl::default_instance_ = new MotorsControl();
   PID::default_instance_ = new PID();
+  Switches::default_instance_ = new Switches();
   CommandPacket::default_instance_ = new CommandPacket();
   CommandPacket_ControllerConfig::default_instance_ = new CommandPacket_ControllerConfig();
   CommandPacket_TelemetryConfig::default_instance_ = new CommandPacket_TelemetryConfig();
@@ -51,6 +383,7 @@ void protobuf_AddDesc_Communication_2eproto() {
   Attitude::default_instance_->InitAsDefaultInstance();
   MotorsControl::default_instance_->InitAsDefaultInstance();
   PID::default_instance_->InitAsDefaultInstance();
+  Switches::default_instance_->InitAsDefaultInstance();
   CommandPacket::default_instance_->InitAsDefaultInstance();
   CommandPacket_ControllerConfig::default_instance_->InitAsDefaultInstance();
   CommandPacket_TelemetryConfig::default_instance_->InitAsDefaultInstance();
@@ -60,33 +393,28 @@ void protobuf_AddDesc_Communication_2eproto() {
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Communication_2eproto);
 }
 
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_Communication_2eproto_once_);
-void protobuf_AddDesc_Communication_2eproto() {
-  ::google::protobuf::::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_Communication_2eproto_once_,
-                 &protobuf_AddDesc_Communication_2eproto_impl);
-}
-#else
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_Communication_2eproto {
   StaticDescriptorInitializer_Communication_2eproto() {
     protobuf_AddDesc_Communication_2eproto();
   }
 } static_descriptor_initializer_Communication_2eproto_;
-#endif
 
 // ===================================================================
 
 #ifndef _MSC_VER
 const int Attitude::kAltitudeFieldNumber;
 const int Attitude::kRollFieldNumber;
+const int Attitude::kRollRateFieldNumber;
 const int Attitude::kPitchFieldNumber;
+const int Attitude::kPitchRateFieldNumber;
+const int Attitude::kYawFieldNumber;
 const int Attitude::kYawRateFieldNumber;
 const int Attitude::kTimestampFieldNumber;
 #endif  // !_MSC_VER
 
 Attitude::Attitude()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -94,7 +422,7 @@ void Attitude::InitAsDefaultInstance() {
 }
 
 Attitude::Attitude(const Attitude& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -103,7 +431,10 @@ void Attitude::SharedCtor() {
   _cached_size_ = 0;
   altitude_ = 0;
   roll_ = 0;
+  roll_rate_ = 0;
   pitch_ = 0;
+  pitch_rate_ = 0;
+  yaw_ = 0;
   yaw_rate_ = 0;
   timestamp_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -114,11 +445,7 @@ Attitude::~Attitude() {
 }
 
 void Attitude::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
   }
 }
 
@@ -127,12 +454,13 @@ void Attitude::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* Attitude::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Attitude_descriptor_;
+}
+
 const Attitude& Attitude::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -146,11 +474,15 @@ void Attitude::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     altitude_ = 0;
     roll_ = 0;
+    roll_rate_ = 0;
     pitch_ = 0;
+    pitch_rate_ = 0;
+    yaw_ = 0;
     yaw_rate_ = 0;
     timestamp_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool Attitude::MergePartialFromCodedStream(
@@ -159,7 +491,7 @@ bool Attitude::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required float altitude = 1;
+      // optional float altitude = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
@@ -174,7 +506,7 @@ bool Attitude::MergePartialFromCodedStream(
         break;
       }
 
-      // required float roll = 2;
+      // optional float roll = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
@@ -186,12 +518,28 @@ bool Attitude::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(29)) goto parse_pitch;
+        if (input->ExpectTag(29)) goto parse_roll_rate;
         break;
       }
 
-      // required float pitch = 3;
+      // optional float roll_rate = 3;
       case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_roll_rate:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &roll_rate_)));
+          set_has_roll_rate();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(37)) goto parse_pitch;
+        break;
+      }
+
+      // optional float pitch = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_pitch:
@@ -202,12 +550,44 @@ bool Attitude::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(37)) goto parse_yaw_rate;
+        if (input->ExpectTag(45)) goto parse_pitch_rate;
         break;
       }
 
-      // required float yaw_rate = 4;
-      case 4: {
+      // optional float pitch_rate = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_pitch_rate:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &pitch_rate_)));
+          set_has_pitch_rate();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(53)) goto parse_yaw;
+        break;
+      }
+
+      // optional float yaw = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_yaw:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &yaw_)));
+          set_has_yaw();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(61)) goto parse_yaw_rate;
+        break;
+      }
+
+      // optional float yaw_rate = 7;
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_yaw_rate:
@@ -218,12 +598,12 @@ bool Attitude::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(41)) goto parse_timestamp;
+        if (input->ExpectTag(65)) goto parse_timestamp;
         break;
       }
 
-      // optional double timestamp = 5;
-      case 5: {
+      // optional double timestamp = 8;
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
          parse_timestamp:
@@ -244,7 +624,8 @@ bool Attitude::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -255,62 +636,150 @@ bool Attitude::MergePartialFromCodedStream(
 
 void Attitude::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required float altitude = 1;
+  // optional float altitude = 1;
   if (has_altitude()) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->altitude(), output);
   }
 
-  // required float roll = 2;
+  // optional float roll = 2;
   if (has_roll()) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->roll(), output);
   }
 
-  // required float pitch = 3;
+  // optional float roll_rate = 3;
+  if (has_roll_rate()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->roll_rate(), output);
+  }
+
+  // optional float pitch = 4;
   if (has_pitch()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->pitch(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->pitch(), output);
   }
 
-  // required float yaw_rate = 4;
+  // optional float pitch_rate = 5;
+  if (has_pitch_rate()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->pitch_rate(), output);
+  }
+
+  // optional float yaw = 6;
+  if (has_yaw()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->yaw(), output);
+  }
+
+  // optional float yaw_rate = 7;
   if (has_yaw_rate()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->yaw_rate(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->yaw_rate(), output);
   }
 
-  // optional double timestamp = 5;
+  // optional double timestamp = 8;
   if (has_timestamp()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->timestamp(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->timestamp(), output);
   }
 
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* Attitude::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional float altitude = 1;
+  if (has_altitude()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->altitude(), target);
+  }
+
+  // optional float roll = 2;
+  if (has_roll()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->roll(), target);
+  }
+
+  // optional float roll_rate = 3;
+  if (has_roll_rate()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->roll_rate(), target);
+  }
+
+  // optional float pitch = 4;
+  if (has_pitch()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->pitch(), target);
+  }
+
+  // optional float pitch_rate = 5;
+  if (has_pitch_rate()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->pitch_rate(), target);
+  }
+
+  // optional float yaw = 6;
+  if (has_yaw()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->yaw(), target);
+  }
+
+  // optional float yaw_rate = 7;
+  if (has_yaw_rate()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->yaw_rate(), target);
+  }
+
+  // optional double timestamp = 8;
+  if (has_timestamp()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->timestamp(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int Attitude::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required float altitude = 1;
+    // optional float altitude = 1;
     if (has_altitude()) {
       total_size += 1 + 4;
     }
 
-    // required float roll = 2;
+    // optional float roll = 2;
     if (has_roll()) {
       total_size += 1 + 4;
     }
 
-    // required float pitch = 3;
+    // optional float roll_rate = 3;
+    if (has_roll_rate()) {
+      total_size += 1 + 4;
+    }
+
+    // optional float pitch = 4;
     if (has_pitch()) {
       total_size += 1 + 4;
     }
 
-    // required float yaw_rate = 4;
+    // optional float pitch_rate = 5;
+    if (has_pitch_rate()) {
+      total_size += 1 + 4;
+    }
+
+    // optional float yaw = 6;
+    if (has_yaw()) {
+      total_size += 1 + 4;
+    }
+
+    // optional float yaw_rate = 7;
     if (has_yaw_rate()) {
       total_size += 1 + 4;
     }
 
-    // optional double timestamp = 5;
+    // optional double timestamp = 8;
     if (has_timestamp()) {
       total_size += 1 + 8;
     }
 
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -318,9 +787,16 @@ int Attitude::ByteSize() const {
   return total_size;
 }
 
-void Attitude::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const Attitude*>(&from));
+void Attitude::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Attitude* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Attitude*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void Attitude::MergeFrom(const Attitude& from) {
@@ -332,8 +808,17 @@ void Attitude::MergeFrom(const Attitude& from) {
     if (from.has_roll()) {
       set_roll(from.roll());
     }
+    if (from.has_roll_rate()) {
+      set_roll_rate(from.roll_rate());
+    }
     if (from.has_pitch()) {
       set_pitch(from.pitch());
+    }
+    if (from.has_pitch_rate()) {
+      set_pitch_rate(from.pitch_rate());
+    }
+    if (from.has_yaw()) {
+      set_yaw(from.yaw());
     }
     if (from.has_yaw_rate()) {
       set_yaw_rate(from.yaw_rate());
@@ -342,6 +827,13 @@ void Attitude::MergeFrom(const Attitude& from) {
       set_timestamp(from.timestamp());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Attitude::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void Attitude::CopyFrom(const Attitude& from) {
@@ -351,7 +843,6 @@ void Attitude::CopyFrom(const Attitude& from) {
 }
 
 bool Attitude::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
   return true;
 }
@@ -360,16 +851,24 @@ void Attitude::Swap(Attitude* other) {
   if (other != this) {
     std::swap(altitude_, other->altitude_);
     std::swap(roll_, other->roll_);
+    std::swap(roll_rate_, other->roll_rate_);
     std::swap(pitch_, other->pitch_);
+    std::swap(pitch_rate_, other->pitch_rate_);
+    std::swap(yaw_, other->yaw_);
     std::swap(yaw_rate_, other->yaw_rate_);
     std::swap(timestamp_, other->timestamp_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string Attitude::GetTypeName() const {
-  return "org.hummingdroid.Attitude";
+::google::protobuf::Metadata Attitude::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Attitude_descriptor_;
+  metadata.reflection = Attitude_reflection_;
+  return metadata;
 }
 
 
@@ -384,7 +883,7 @@ const int MotorsControl::kTimestampFieldNumber;
 #endif  // !_MSC_VER
 
 MotorsControl::MotorsControl()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -392,7 +891,7 @@ void MotorsControl::InitAsDefaultInstance() {
 }
 
 MotorsControl::MotorsControl(const MotorsControl& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -412,11 +911,7 @@ MotorsControl::~MotorsControl() {
 }
 
 void MotorsControl::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
   }
 }
 
@@ -425,12 +920,13 @@ void MotorsControl::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* MotorsControl::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return MotorsControl_descriptor_;
+}
+
 const MotorsControl& MotorsControl::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -449,6 +945,7 @@ void MotorsControl::Clear() {
     timestamp_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool MotorsControl::MergePartialFromCodedStream(
@@ -542,7 +1039,8 @@ bool MotorsControl::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -578,6 +1076,44 @@ void MotorsControl::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->timestamp(), output);
   }
 
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* MotorsControl::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required float altitude_throttle = 1;
+  if (has_altitude_throttle()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->altitude_throttle(), target);
+  }
+
+  // required float roll_throttle = 2;
+  if (has_roll_throttle()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->roll_throttle(), target);
+  }
+
+  // required float pitch_throttle = 3;
+  if (has_pitch_throttle()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->pitch_throttle(), target);
+  }
+
+  // required float yaw_throttle = 4;
+  if (has_yaw_throttle()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->yaw_throttle(), target);
+  }
+
+  // optional double timestamp = 5;
+  if (has_timestamp()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->timestamp(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int MotorsControl::ByteSize() const {
@@ -610,15 +1146,27 @@ int MotorsControl::ByteSize() const {
     }
 
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void MotorsControl::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const MotorsControl*>(&from));
+void MotorsControl::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const MotorsControl* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MotorsControl*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void MotorsControl::MergeFrom(const MotorsControl& from) {
@@ -640,6 +1188,13 @@ void MotorsControl::MergeFrom(const MotorsControl& from) {
       set_timestamp(from.timestamp());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void MotorsControl::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void MotorsControl::CopyFrom(const MotorsControl& from) {
@@ -662,12 +1217,17 @@ void MotorsControl::Swap(MotorsControl* other) {
     std::swap(yaw_throttle_, other->yaw_throttle_);
     std::swap(timestamp_, other->timestamp_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string MotorsControl::GetTypeName() const {
-  return "org.hummingdroid.MotorsControl";
+::google::protobuf::Metadata MotorsControl::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = MotorsControl_descriptor_;
+  metadata.reflection = MotorsControl_reflection_;
+  return metadata;
 }
 
 
@@ -682,7 +1242,7 @@ const int PID::kTdFieldNumber;
 #endif  // !_MSC_VER
 
 PID::PID()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -690,7 +1250,7 @@ void PID::InitAsDefaultInstance() {
 }
 
 PID::PID(const PID& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -710,11 +1270,7 @@ PID::~PID() {
 }
 
 void PID::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
   }
 }
 
@@ -723,12 +1279,13 @@ void PID::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* PID::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PID_descriptor_;
+}
+
 const PID& PID::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -747,6 +1304,7 @@ void PID::Clear() {
     td_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool PID::MergePartialFromCodedStream(
@@ -840,7 +1398,8 @@ bool PID::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -876,6 +1435,44 @@ void PID::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->td(), output);
   }
 
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* PID::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required float Kp = 1;
+  if (has_kp()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->kp(), target);
+  }
+
+  // required float Ki = 2;
+  if (has_ki()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->ki(), target);
+  }
+
+  // required float Kd = 3;
+  if (has_kd()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->kd(), target);
+  }
+
+  // required float Ko = 4;
+  if (has_ko()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->ko(), target);
+  }
+
+  // required float Td = 5;
+  if (has_td()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->td(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int PID::ByteSize() const {
@@ -908,15 +1505,27 @@ int PID::ByteSize() const {
     }
 
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void PID::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const PID*>(&from));
+void PID::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const PID* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const PID*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void PID::MergeFrom(const PID& from) {
@@ -938,6 +1547,13 @@ void PID::MergeFrom(const PID& from) {
       set_td(from.td());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void PID::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void PID::CopyFrom(const PID& from) {
@@ -960,12 +1576,338 @@ void PID::Swap(PID* other) {
     std::swap(ko_, other->ko_);
     std::swap(td_, other->td_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string PID::GetTypeName() const {
-  return "org.hummingdroid.PID";
+::google::protobuf::Metadata PID::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PID_descriptor_;
+  metadata.reflection = PID_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int Switches::kFrontLeftFieldNumber;
+const int Switches::kFrontRightFieldNumber;
+const int Switches::kBackRightFieldNumber;
+const int Switches::kBackLeftFieldNumber;
+#endif  // !_MSC_VER
+
+Switches::Switches()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void Switches::InitAsDefaultInstance() {
+}
+
+Switches::Switches(const Switches& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void Switches::SharedCtor() {
+  _cached_size_ = 0;
+  front_left_ = false;
+  front_right_ = false;
+  back_right_ = false;
+  back_left_ = false;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+Switches::~Switches() {
+  SharedDtor();
+}
+
+void Switches::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void Switches::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Switches::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Switches_descriptor_;
+}
+
+const Switches& Switches::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
+  return *default_instance_;
+}
+
+Switches* Switches::default_instance_ = NULL;
+
+Switches* Switches::New() const {
+  return new Switches;
+}
+
+void Switches::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    front_left_ = false;
+    front_right_ = false;
+    back_right_ = false;
+    back_left_ = false;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Switches::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required bool front_left = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &front_left_)));
+          set_has_front_left();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_front_right;
+        break;
+      }
+
+      // required bool front_right = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_front_right:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &front_right_)));
+          set_has_front_right();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_back_right;
+        break;
+      }
+
+      // required bool back_right = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_back_right:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &back_right_)));
+          set_has_back_right();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_back_left;
+        break;
+      }
+
+      // required bool back_left = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_back_left:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &back_left_)));
+          set_has_back_left();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void Switches::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required bool front_left = 1;
+  if (has_front_left()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(1, this->front_left(), output);
+  }
+
+  // required bool front_right = 2;
+  if (has_front_right()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->front_right(), output);
+  }
+
+  // required bool back_right = 3;
+  if (has_back_right()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->back_right(), output);
+  }
+
+  // required bool back_left = 4;
+  if (has_back_left()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->back_left(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* Switches::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required bool front_left = 1;
+  if (has_front_left()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(1, this->front_left(), target);
+  }
+
+  // required bool front_right = 2;
+  if (has_front_right()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->front_right(), target);
+  }
+
+  // required bool back_right = 3;
+  if (has_back_right()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->back_right(), target);
+  }
+
+  // required bool back_left = 4;
+  if (has_back_left()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->back_left(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int Switches::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required bool front_left = 1;
+    if (has_front_left()) {
+      total_size += 1 + 1;
+    }
+
+    // required bool front_right = 2;
+    if (has_front_right()) {
+      total_size += 1 + 1;
+    }
+
+    // required bool back_right = 3;
+    if (has_back_right()) {
+      total_size += 1 + 1;
+    }
+
+    // required bool back_left = 4;
+    if (has_back_left()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Switches::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Switches* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Switches*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Switches::MergeFrom(const Switches& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_front_left()) {
+      set_front_left(from.front_left());
+    }
+    if (from.has_front_right()) {
+      set_front_right(from.front_right());
+    }
+    if (from.has_back_right()) {
+      set_back_right(from.back_right());
+    }
+    if (from.has_back_left()) {
+      set_back_left(from.back_left());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Switches::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Switches::CopyFrom(const Switches& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Switches::IsInitialized() const {
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+
+  return true;
+}
+
+void Switches::Swap(Switches* other) {
+  if (other != this) {
+    std::swap(front_left_, other->front_left_);
+    std::swap(front_right_, other->front_right_);
+    std::swap(back_right_, other->back_right_);
+    std::swap(back_left_, other->back_left_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata Switches::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Switches_descriptor_;
+  metadata.reflection = Switches_reflection_;
+  return metadata;
 }
 
 
@@ -982,39 +1924,19 @@ const int CommandPacket_ControllerConfig::kMaxYawRateFieldNumber;
 #endif  // !_MSC_VER
 
 CommandPacket_ControllerConfig::CommandPacket_ControllerConfig()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void CommandPacket_ControllerConfig::InitAsDefaultInstance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  altitude_pid_ = const_cast< ::org::hummingdroid::PID*>(
-      ::org::hummingdroid::PID::internal_default_instance());
-#else
   altitude_pid_ = const_cast< ::org::hummingdroid::PID*>(&::org::hummingdroid::PID::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  roll_pid_ = const_cast< ::org::hummingdroid::PID*>(
-      ::org::hummingdroid::PID::internal_default_instance());
-#else
   roll_pid_ = const_cast< ::org::hummingdroid::PID*>(&::org::hummingdroid::PID::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  pitch_pid_ = const_cast< ::org::hummingdroid::PID*>(
-      ::org::hummingdroid::PID::internal_default_instance());
-#else
   pitch_pid_ = const_cast< ::org::hummingdroid::PID*>(&::org::hummingdroid::PID::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  yaw_rate_pid_ = const_cast< ::org::hummingdroid::PID*>(
-      ::org::hummingdroid::PID::internal_default_instance());
-#else
   yaw_rate_pid_ = const_cast< ::org::hummingdroid::PID*>(&::org::hummingdroid::PID::default_instance());
-#endif
 }
 
 CommandPacket_ControllerConfig::CommandPacket_ControllerConfig(const CommandPacket_ControllerConfig& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1036,11 +1958,7 @@ CommandPacket_ControllerConfig::~CommandPacket_ControllerConfig() {
 }
 
 void CommandPacket_ControllerConfig::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
     delete altitude_pid_;
     delete roll_pid_;
     delete pitch_pid_;
@@ -1053,12 +1971,13 @@ void CommandPacket_ControllerConfig::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CommandPacket_ControllerConfig::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommandPacket_ControllerConfig_descriptor_;
+}
+
 const CommandPacket_ControllerConfig& CommandPacket_ControllerConfig::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -1087,6 +2006,7 @@ void CommandPacket_ControllerConfig::Clear() {
     max_yaw_rate_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CommandPacket_ControllerConfig::MergePartialFromCodedStream(
@@ -1204,7 +2124,8 @@ bool CommandPacket_ControllerConfig::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1217,25 +2138,25 @@ void CommandPacket_ControllerConfig::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required .org.hummingdroid.PID altitude_pid = 1;
   if (has_altitude_pid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->altitude_pid(), output);
   }
 
   // required .org.hummingdroid.PID roll_pid = 2;
   if (has_roll_pid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->roll_pid(), output);
   }
 
   // required .org.hummingdroid.PID pitch_pid = 3;
   if (has_pitch_pid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->pitch_pid(), output);
   }
 
   // required .org.hummingdroid.PID yaw_rate_pid = 4;
   if (has_yaw_rate_pid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->yaw_rate_pid(), output);
   }
 
@@ -1254,6 +2175,62 @@ void CommandPacket_ControllerConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->max_yaw_rate(), output);
   }
 
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CommandPacket_ControllerConfig::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required .org.hummingdroid.PID altitude_pid = 1;
+  if (has_altitude_pid()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->altitude_pid(), target);
+  }
+
+  // required .org.hummingdroid.PID roll_pid = 2;
+  if (has_roll_pid()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->roll_pid(), target);
+  }
+
+  // required .org.hummingdroid.PID pitch_pid = 3;
+  if (has_pitch_pid()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->pitch_pid(), target);
+  }
+
+  // required .org.hummingdroid.PID yaw_rate_pid = 4;
+  if (has_yaw_rate_pid()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->yaw_rate_pid(), target);
+  }
+
+  // optional float max_inclinaison = 5;
+  if (has_max_inclinaison()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->max_inclinaison(), target);
+  }
+
+  // optional float max_altitude = 6;
+  if (has_max_altitude()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->max_altitude(), target);
+  }
+
+  // optional float max_yaw_rate = 7;
+  if (has_max_yaw_rate()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->max_yaw_rate(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CommandPacket_ControllerConfig::ByteSize() const {
@@ -1304,15 +2281,27 @@ int CommandPacket_ControllerConfig::ByteSize() const {
     }
 
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CommandPacket_ControllerConfig::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CommandPacket_ControllerConfig*>(&from));
+void CommandPacket_ControllerConfig::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CommandPacket_ControllerConfig* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CommandPacket_ControllerConfig*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CommandPacket_ControllerConfig::MergeFrom(const CommandPacket_ControllerConfig& from) {
@@ -1340,6 +2329,13 @@ void CommandPacket_ControllerConfig::MergeFrom(const CommandPacket_ControllerCon
       set_max_yaw_rate(from.max_yaw_rate());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CommandPacket_ControllerConfig::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CommandPacket_ControllerConfig::CopyFrom(const CommandPacket_ControllerConfig& from) {
@@ -1376,12 +2372,17 @@ void CommandPacket_ControllerConfig::Swap(CommandPacket_ControllerConfig* other)
     std::swap(max_altitude_, other->max_altitude_);
     std::swap(max_yaw_rate_, other->max_yaw_rate_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CommandPacket_ControllerConfig::GetTypeName() const {
-  return "org.hummingdroid.CommandPacket.ControllerConfig";
+::google::protobuf::Metadata CommandPacket_ControllerConfig::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommandPacket_ControllerConfig_descriptor_;
+  metadata.reflection = CommandPacket_ControllerConfig_reflection_;
+  return metadata;
 }
 
 
@@ -1393,10 +2394,11 @@ const int CommandPacket_TelemetryConfig::kPortFieldNumber;
 const int CommandPacket_TelemetryConfig::kCommandEnabledFieldNumber;
 const int CommandPacket_TelemetryConfig::kAttitudeEnabledFieldNumber;
 const int CommandPacket_TelemetryConfig::kControlEnabledFieldNumber;
+const int CommandPacket_TelemetryConfig::kSwitchesEnabledFieldNumber;
 #endif  // !_MSC_VER
 
 CommandPacket_TelemetryConfig::CommandPacket_TelemetryConfig()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -1404,7 +2406,7 @@ void CommandPacket_TelemetryConfig::InitAsDefaultInstance() {
 }
 
 CommandPacket_TelemetryConfig::CommandPacket_TelemetryConfig(const CommandPacket_TelemetryConfig& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1416,6 +2418,7 @@ void CommandPacket_TelemetryConfig::SharedCtor() {
   commandenabled_ = false;
   attitudeenabled_ = false;
   controlenabled_ = false;
+  switchesenabled_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1427,11 +2430,7 @@ void CommandPacket_TelemetryConfig::SharedDtor() {
   if (host_ != &::google::protobuf::internal::kEmptyString) {
     delete host_;
   }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
   }
 }
 
@@ -1440,12 +2439,13 @@ void CommandPacket_TelemetryConfig::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CommandPacket_TelemetryConfig::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommandPacket_TelemetryConfig_descriptor_;
+}
+
 const CommandPacket_TelemetryConfig& CommandPacket_TelemetryConfig::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -1466,8 +2466,10 @@ void CommandPacket_TelemetryConfig::Clear() {
     commandenabled_ = false;
     attitudeenabled_ = false;
     controlenabled_ = false;
+    switchesenabled_ = false;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CommandPacket_TelemetryConfig::MergePartialFromCodedStream(
@@ -1482,6 +2484,9 @@ bool CommandPacket_TelemetryConfig::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_host()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->host().data(), this->host().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -1549,6 +2554,22 @@ bool CommandPacket_TelemetryConfig::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(48)) goto parse_switchesEnabled;
+        break;
+      }
+
+      // required bool switchesEnabled = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_switchesEnabled:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &switchesenabled_)));
+          set_has_switchesenabled();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1559,7 +2580,8 @@ bool CommandPacket_TelemetryConfig::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1572,6 +2594,9 @@ void CommandPacket_TelemetryConfig::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string host = 1;
   if (has_host()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->host().data(), this->host().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->host(), output);
   }
@@ -1596,6 +2621,59 @@ void CommandPacket_TelemetryConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->controlenabled(), output);
   }
 
+  // required bool switchesEnabled = 6;
+  if (has_switchesenabled()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->switchesenabled(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CommandPacket_TelemetryConfig::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required string host = 1;
+  if (has_host()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->host().data(), this->host().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->host(), target);
+  }
+
+  // required int32 port = 2;
+  if (has_port()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->port(), target);
+  }
+
+  // required bool commandEnabled = 3;
+  if (has_commandenabled()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->commandenabled(), target);
+  }
+
+  // required bool attitudeEnabled = 4;
+  if (has_attitudeenabled()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->attitudeenabled(), target);
+  }
+
+  // required bool controlEnabled = 5;
+  if (has_controlenabled()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->controlenabled(), target);
+  }
+
+  // required bool switchesEnabled = 6;
+  if (has_switchesenabled()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->switchesenabled(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CommandPacket_TelemetryConfig::ByteSize() const {
@@ -1631,6 +2709,16 @@ int CommandPacket_TelemetryConfig::ByteSize() const {
       total_size += 1 + 1;
     }
 
+    // required bool switchesEnabled = 6;
+    if (has_switchesenabled()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1638,9 +2726,16 @@ int CommandPacket_TelemetryConfig::ByteSize() const {
   return total_size;
 }
 
-void CommandPacket_TelemetryConfig::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CommandPacket_TelemetryConfig*>(&from));
+void CommandPacket_TelemetryConfig::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CommandPacket_TelemetryConfig* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CommandPacket_TelemetryConfig*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CommandPacket_TelemetryConfig::MergeFrom(const CommandPacket_TelemetryConfig& from) {
@@ -1661,7 +2756,17 @@ void CommandPacket_TelemetryConfig::MergeFrom(const CommandPacket_TelemetryConfi
     if (from.has_controlenabled()) {
       set_controlenabled(from.controlenabled());
     }
+    if (from.has_switchesenabled()) {
+      set_switchesenabled(from.switchesenabled());
+    }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CommandPacket_TelemetryConfig::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CommandPacket_TelemetryConfig::CopyFrom(const CommandPacket_TelemetryConfig& from) {
@@ -1671,7 +2776,7 @@ void CommandPacket_TelemetryConfig::CopyFrom(const CommandPacket_TelemetryConfig
 }
 
 bool CommandPacket_TelemetryConfig::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
 
   return true;
 }
@@ -1683,13 +2788,19 @@ void CommandPacket_TelemetryConfig::Swap(CommandPacket_TelemetryConfig* other) {
     std::swap(commandenabled_, other->commandenabled_);
     std::swap(attitudeenabled_, other->attitudeenabled_);
     std::swap(controlenabled_, other->controlenabled_);
+    std::swap(switchesenabled_, other->switchesenabled_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CommandPacket_TelemetryConfig::GetTypeName() const {
-  return "org.hummingdroid.CommandPacket.TelemetryConfig";
+::google::protobuf::Metadata CommandPacket_TelemetryConfig::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommandPacket_TelemetryConfig_descriptor_;
+  metadata.reflection = CommandPacket_TelemetryConfig_reflection_;
+  return metadata;
 }
 
 
@@ -1700,12 +2811,16 @@ const int CommandPacket_SensorsConfig::kAccelLowpassConstantFieldNumber;
 const int CommandPacket_SensorsConfig::kGyroRollBiasFieldNumber;
 const int CommandPacket_SensorsConfig::kGyroPitchBiasFieldNumber;
 const int CommandPacket_SensorsConfig::kGyroYawBiasFieldNumber;
+const int CommandPacket_SensorsConfig::kGyroRollGainFieldNumber;
+const int CommandPacket_SensorsConfig::kGyroPitchGainFieldNumber;
+const int CommandPacket_SensorsConfig::kGyroYawGainFieldNumber;
 const int CommandPacket_SensorsConfig::kAccelRollBiasFieldNumber;
 const int CommandPacket_SensorsConfig::kAccelPitchBiasFieldNumber;
+const int CommandPacket_SensorsConfig::kApplyModuloFieldNumber;
 #endif  // !_MSC_VER
 
 CommandPacket_SensorsConfig::CommandPacket_SensorsConfig()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -1713,7 +2828,7 @@ void CommandPacket_SensorsConfig::InitAsDefaultInstance() {
 }
 
 CommandPacket_SensorsConfig::CommandPacket_SensorsConfig(const CommandPacket_SensorsConfig& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1724,8 +2839,12 @@ void CommandPacket_SensorsConfig::SharedCtor() {
   gyro_roll_bias_ = 0;
   gyro_pitch_bias_ = 0;
   gyro_yaw_bias_ = 0;
+  gyro_roll_gain_ = 0;
+  gyro_pitch_gain_ = 0;
+  gyro_yaw_gain_ = 0;
   accel_roll_bias_ = 0;
   accel_pitch_bias_ = 0;
+  apply_modulo_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1734,11 +2853,7 @@ CommandPacket_SensorsConfig::~CommandPacket_SensorsConfig() {
 }
 
 void CommandPacket_SensorsConfig::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
   }
 }
 
@@ -1747,12 +2862,13 @@ void CommandPacket_SensorsConfig::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CommandPacket_SensorsConfig::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommandPacket_SensorsConfig_descriptor_;
+}
+
 const CommandPacket_SensorsConfig& CommandPacket_SensorsConfig::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -1768,10 +2884,17 @@ void CommandPacket_SensorsConfig::Clear() {
     gyro_roll_bias_ = 0;
     gyro_pitch_bias_ = 0;
     gyro_yaw_bias_ = 0;
+    gyro_roll_gain_ = 0;
+    gyro_pitch_gain_ = 0;
+    gyro_yaw_gain_ = 0;
     accel_roll_bias_ = 0;
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     accel_pitch_bias_ = 0;
+    apply_modulo_ = false;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CommandPacket_SensorsConfig::MergePartialFromCodedStream(
@@ -1839,12 +2962,60 @@ bool CommandPacket_SensorsConfig::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(45)) goto parse_accel_roll_bias;
+        if (input->ExpectTag(45)) goto parse_gyro_roll_gain;
         break;
       }
 
-      // required float accel_roll_bias = 5;
+      // required float gyro_roll_gain = 5;
       case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_gyro_roll_gain:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &gyro_roll_gain_)));
+          set_has_gyro_roll_gain();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(53)) goto parse_gyro_pitch_gain;
+        break;
+      }
+
+      // required float gyro_pitch_gain = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_gyro_pitch_gain:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &gyro_pitch_gain_)));
+          set_has_gyro_pitch_gain();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(61)) goto parse_gyro_yaw_gain;
+        break;
+      }
+
+      // required float gyro_yaw_gain = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_gyro_yaw_gain:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &gyro_yaw_gain_)));
+          set_has_gyro_yaw_gain();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(69)) goto parse_accel_roll_bias;
+        break;
+      }
+
+      // required float accel_roll_bias = 8;
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_accel_roll_bias:
@@ -1855,12 +3026,12 @@ bool CommandPacket_SensorsConfig::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(53)) goto parse_accel_pitch_bias;
+        if (input->ExpectTag(77)) goto parse_accel_pitch_bias;
         break;
       }
 
-      // required float accel_pitch_bias = 6;
-      case 6: {
+      // required float accel_pitch_bias = 9;
+      case 9: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_accel_pitch_bias:
@@ -1868,6 +3039,22 @@ bool CommandPacket_SensorsConfig::MergePartialFromCodedStream(
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &accel_pitch_bias_)));
           set_has_accel_pitch_bias();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(80)) goto parse_apply_modulo;
+        break;
+      }
+
+      // required bool apply_modulo = 10;
+      case 10: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_apply_modulo:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &apply_modulo_)));
+          set_has_apply_modulo();
         } else {
           goto handle_uninterpreted;
         }
@@ -1881,7 +3068,8 @@ bool CommandPacket_SensorsConfig::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1912,16 +3100,99 @@ void CommandPacket_SensorsConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->gyro_yaw_bias(), output);
   }
 
-  // required float accel_roll_bias = 5;
+  // required float gyro_roll_gain = 5;
+  if (has_gyro_roll_gain()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->gyro_roll_gain(), output);
+  }
+
+  // required float gyro_pitch_gain = 6;
+  if (has_gyro_pitch_gain()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->gyro_pitch_gain(), output);
+  }
+
+  // required float gyro_yaw_gain = 7;
+  if (has_gyro_yaw_gain()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->gyro_yaw_gain(), output);
+  }
+
+  // required float accel_roll_bias = 8;
   if (has_accel_roll_bias()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->accel_roll_bias(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(8, this->accel_roll_bias(), output);
   }
 
-  // required float accel_pitch_bias = 6;
+  // required float accel_pitch_bias = 9;
   if (has_accel_pitch_bias()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->accel_pitch_bias(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(9, this->accel_pitch_bias(), output);
   }
 
+  // required bool apply_modulo = 10;
+  if (has_apply_modulo()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(10, this->apply_modulo(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CommandPacket_SensorsConfig::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required float accel_lowpass_constant = 1;
+  if (has_accel_lowpass_constant()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->accel_lowpass_constant(), target);
+  }
+
+  // required float gyro_roll_bias = 2;
+  if (has_gyro_roll_bias()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->gyro_roll_bias(), target);
+  }
+
+  // required float gyro_pitch_bias = 3;
+  if (has_gyro_pitch_bias()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->gyro_pitch_bias(), target);
+  }
+
+  // required float gyro_yaw_bias = 4;
+  if (has_gyro_yaw_bias()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->gyro_yaw_bias(), target);
+  }
+
+  // required float gyro_roll_gain = 5;
+  if (has_gyro_roll_gain()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->gyro_roll_gain(), target);
+  }
+
+  // required float gyro_pitch_gain = 6;
+  if (has_gyro_pitch_gain()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->gyro_pitch_gain(), target);
+  }
+
+  // required float gyro_yaw_gain = 7;
+  if (has_gyro_yaw_gain()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->gyro_yaw_gain(), target);
+  }
+
+  // required float accel_roll_bias = 8;
+  if (has_accel_roll_bias()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(8, this->accel_roll_bias(), target);
+  }
+
+  // required float accel_pitch_bias = 9;
+  if (has_accel_pitch_bias()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(9, this->accel_pitch_bias(), target);
+  }
+
+  // required bool apply_modulo = 10;
+  if (has_apply_modulo()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(10, this->apply_modulo(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CommandPacket_SensorsConfig::ByteSize() const {
@@ -1948,16 +3219,43 @@ int CommandPacket_SensorsConfig::ByteSize() const {
       total_size += 1 + 4;
     }
 
-    // required float accel_roll_bias = 5;
+    // required float gyro_roll_gain = 5;
+    if (has_gyro_roll_gain()) {
+      total_size += 1 + 4;
+    }
+
+    // required float gyro_pitch_gain = 6;
+    if (has_gyro_pitch_gain()) {
+      total_size += 1 + 4;
+    }
+
+    // required float gyro_yaw_gain = 7;
+    if (has_gyro_yaw_gain()) {
+      total_size += 1 + 4;
+    }
+
+    // required float accel_roll_bias = 8;
     if (has_accel_roll_bias()) {
       total_size += 1 + 4;
     }
 
-    // required float accel_pitch_bias = 6;
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // required float accel_pitch_bias = 9;
     if (has_accel_pitch_bias()) {
       total_size += 1 + 4;
     }
 
+    // required bool apply_modulo = 10;
+    if (has_apply_modulo()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1965,9 +3263,16 @@ int CommandPacket_SensorsConfig::ByteSize() const {
   return total_size;
 }
 
-void CommandPacket_SensorsConfig::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CommandPacket_SensorsConfig*>(&from));
+void CommandPacket_SensorsConfig::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CommandPacket_SensorsConfig* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CommandPacket_SensorsConfig*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CommandPacket_SensorsConfig::MergeFrom(const CommandPacket_SensorsConfig& from) {
@@ -1985,13 +3290,34 @@ void CommandPacket_SensorsConfig::MergeFrom(const CommandPacket_SensorsConfig& f
     if (from.has_gyro_yaw_bias()) {
       set_gyro_yaw_bias(from.gyro_yaw_bias());
     }
+    if (from.has_gyro_roll_gain()) {
+      set_gyro_roll_gain(from.gyro_roll_gain());
+    }
+    if (from.has_gyro_pitch_gain()) {
+      set_gyro_pitch_gain(from.gyro_pitch_gain());
+    }
+    if (from.has_gyro_yaw_gain()) {
+      set_gyro_yaw_gain(from.gyro_yaw_gain());
+    }
     if (from.has_accel_roll_bias()) {
       set_accel_roll_bias(from.accel_roll_bias());
     }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_accel_pitch_bias()) {
       set_accel_pitch_bias(from.accel_pitch_bias());
     }
+    if (from.has_apply_modulo()) {
+      set_apply_modulo(from.apply_modulo());
+    }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CommandPacket_SensorsConfig::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CommandPacket_SensorsConfig::CopyFrom(const CommandPacket_SensorsConfig& from) {
@@ -2001,7 +3327,7 @@ void CommandPacket_SensorsConfig::CopyFrom(const CommandPacket_SensorsConfig& fr
 }
 
 bool CommandPacket_SensorsConfig::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
 
   return true;
 }
@@ -2012,15 +3338,24 @@ void CommandPacket_SensorsConfig::Swap(CommandPacket_SensorsConfig* other) {
     std::swap(gyro_roll_bias_, other->gyro_roll_bias_);
     std::swap(gyro_pitch_bias_, other->gyro_pitch_bias_);
     std::swap(gyro_yaw_bias_, other->gyro_yaw_bias_);
+    std::swap(gyro_roll_gain_, other->gyro_roll_gain_);
+    std::swap(gyro_pitch_gain_, other->gyro_pitch_gain_);
+    std::swap(gyro_yaw_gain_, other->gyro_yaw_gain_);
     std::swap(accel_roll_bias_, other->accel_roll_bias_);
     std::swap(accel_pitch_bias_, other->accel_pitch_bias_);
+    std::swap(apply_modulo_, other->apply_modulo_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CommandPacket_SensorsConfig::GetTypeName() const {
-  return "org.hummingdroid.CommandPacket.SensorsConfig";
+::google::protobuf::Metadata CommandPacket_SensorsConfig::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommandPacket_SensorsConfig_descriptor_;
+  metadata.reflection = CommandPacket_SensorsConfig_reflection_;
+  return metadata;
 }
 
 
@@ -2032,7 +3367,7 @@ const int CommandPacket_MotorsConfig::kMaxPwmFieldNumber;
 #endif  // !_MSC_VER
 
 CommandPacket_MotorsConfig::CommandPacket_MotorsConfig()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -2040,7 +3375,7 @@ void CommandPacket_MotorsConfig::InitAsDefaultInstance() {
 }
 
 CommandPacket_MotorsConfig::CommandPacket_MotorsConfig(const CommandPacket_MotorsConfig& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2057,11 +3392,7 @@ CommandPacket_MotorsConfig::~CommandPacket_MotorsConfig() {
 }
 
 void CommandPacket_MotorsConfig::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
   }
 }
 
@@ -2070,12 +3401,13 @@ void CommandPacket_MotorsConfig::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CommandPacket_MotorsConfig::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommandPacket_MotorsConfig_descriptor_;
+}
+
 const CommandPacket_MotorsConfig& CommandPacket_MotorsConfig::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -2091,6 +3423,7 @@ void CommandPacket_MotorsConfig::Clear() {
     max_pwm_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CommandPacket_MotorsConfig::MergePartialFromCodedStream(
@@ -2136,7 +3469,8 @@ bool CommandPacket_MotorsConfig::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -2157,6 +3491,29 @@ void CommandPacket_MotorsConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->max_pwm(), output);
   }
 
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CommandPacket_MotorsConfig::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 min_pwm = 1;
+  if (has_min_pwm()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->min_pwm(), target);
+  }
+
+  // required int32 max_pwm = 2;
+  if (has_max_pwm()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->max_pwm(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CommandPacket_MotorsConfig::ByteSize() const {
@@ -2178,15 +3535,27 @@ int CommandPacket_MotorsConfig::ByteSize() const {
     }
 
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CommandPacket_MotorsConfig::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CommandPacket_MotorsConfig*>(&from));
+void CommandPacket_MotorsConfig::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CommandPacket_MotorsConfig* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CommandPacket_MotorsConfig*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CommandPacket_MotorsConfig::MergeFrom(const CommandPacket_MotorsConfig& from) {
@@ -2199,6 +3568,13 @@ void CommandPacket_MotorsConfig::MergeFrom(const CommandPacket_MotorsConfig& fro
       set_max_pwm(from.max_pwm());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CommandPacket_MotorsConfig::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CommandPacket_MotorsConfig::CopyFrom(const CommandPacket_MotorsConfig& from) {
@@ -2218,12 +3594,17 @@ void CommandPacket_MotorsConfig::Swap(CommandPacket_MotorsConfig* other) {
     std::swap(min_pwm_, other->min_pwm_);
     std::swap(max_pwm_, other->max_pwm_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CommandPacket_MotorsConfig::GetTypeName() const {
-  return "org.hummingdroid.CommandPacket.MotorsConfig";
+::google::protobuf::Metadata CommandPacket_MotorsConfig::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommandPacket_MotorsConfig_descriptor_;
+  metadata.reflection = CommandPacket_MotorsConfig_reflection_;
+  return metadata;
 }
 
 
@@ -2238,45 +3619,20 @@ const int CommandPacket::kMotorsConfigFieldNumber;
 #endif  // !_MSC_VER
 
 CommandPacket::CommandPacket()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void CommandPacket::InitAsDefaultInstance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  command_ = const_cast< ::org::hummingdroid::Attitude*>(
-      ::org::hummingdroid::Attitude::internal_default_instance());
-#else
   command_ = const_cast< ::org::hummingdroid::Attitude*>(&::org::hummingdroid::Attitude::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  controller_config_ = const_cast< ::org::hummingdroid::CommandPacket_ControllerConfig*>(
-      ::org::hummingdroid::CommandPacket_ControllerConfig::internal_default_instance());
-#else
   controller_config_ = const_cast< ::org::hummingdroid::CommandPacket_ControllerConfig*>(&::org::hummingdroid::CommandPacket_ControllerConfig::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  telemetry_config_ = const_cast< ::org::hummingdroid::CommandPacket_TelemetryConfig*>(
-      ::org::hummingdroid::CommandPacket_TelemetryConfig::internal_default_instance());
-#else
   telemetry_config_ = const_cast< ::org::hummingdroid::CommandPacket_TelemetryConfig*>(&::org::hummingdroid::CommandPacket_TelemetryConfig::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  sensors_config_ = const_cast< ::org::hummingdroid::CommandPacket_SensorsConfig*>(
-      ::org::hummingdroid::CommandPacket_SensorsConfig::internal_default_instance());
-#else
   sensors_config_ = const_cast< ::org::hummingdroid::CommandPacket_SensorsConfig*>(&::org::hummingdroid::CommandPacket_SensorsConfig::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  motors_config_ = const_cast< ::org::hummingdroid::CommandPacket_MotorsConfig*>(
-      ::org::hummingdroid::CommandPacket_MotorsConfig::internal_default_instance());
-#else
   motors_config_ = const_cast< ::org::hummingdroid::CommandPacket_MotorsConfig*>(&::org::hummingdroid::CommandPacket_MotorsConfig::default_instance());
-#endif
 }
 
 CommandPacket::CommandPacket(const CommandPacket& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2296,11 +3652,7 @@ CommandPacket::~CommandPacket() {
 }
 
 void CommandPacket::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
     delete command_;
     delete controller_config_;
     delete telemetry_config_;
@@ -2314,12 +3666,13 @@ void CommandPacket::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CommandPacket::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommandPacket_descriptor_;
+}
+
 const CommandPacket& CommandPacket::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -2348,6 +3701,7 @@ void CommandPacket::Clear() {
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CommandPacket::MergePartialFromCodedStream(
@@ -2431,7 +3785,8 @@ bool CommandPacket::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -2444,34 +3799,82 @@ void CommandPacket::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // optional .org.hummingdroid.Attitude command = 1;
   if (has_command()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->command(), output);
   }
 
   // optional .org.hummingdroid.CommandPacket.ControllerConfig controller_config = 2;
   if (has_controller_config()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->controller_config(), output);
   }
 
   // optional .org.hummingdroid.CommandPacket.TelemetryConfig telemetry_config = 3;
   if (has_telemetry_config()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->telemetry_config(), output);
   }
 
   // optional .org.hummingdroid.CommandPacket.SensorsConfig sensors_config = 4;
   if (has_sensors_config()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->sensors_config(), output);
   }
 
   // optional .org.hummingdroid.CommandPacket.MotorsConfig motors_config = 5;
   if (has_motors_config()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, this->motors_config(), output);
   }
 
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CommandPacket::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional .org.hummingdroid.Attitude command = 1;
+  if (has_command()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->command(), target);
+  }
+
+  // optional .org.hummingdroid.CommandPacket.ControllerConfig controller_config = 2;
+  if (has_controller_config()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->controller_config(), target);
+  }
+
+  // optional .org.hummingdroid.CommandPacket.TelemetryConfig telemetry_config = 3;
+  if (has_telemetry_config()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->telemetry_config(), target);
+  }
+
+  // optional .org.hummingdroid.CommandPacket.SensorsConfig sensors_config = 4;
+  if (has_sensors_config()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->sensors_config(), target);
+  }
+
+  // optional .org.hummingdroid.CommandPacket.MotorsConfig motors_config = 5;
+  if (has_motors_config()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->motors_config(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CommandPacket::ByteSize() const {
@@ -2514,15 +3917,27 @@ int CommandPacket::ByteSize() const {
     }
 
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CommandPacket::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CommandPacket*>(&from));
+void CommandPacket::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CommandPacket* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CommandPacket*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CommandPacket::MergeFrom(const CommandPacket& from) {
@@ -2544,6 +3959,13 @@ void CommandPacket::MergeFrom(const CommandPacket& from) {
       mutable_motors_config()->::org::hummingdroid::CommandPacket_MotorsConfig::MergeFrom(from.motors_config());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CommandPacket::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CommandPacket::CopyFrom(const CommandPacket& from) {
@@ -2554,9 +3976,6 @@ void CommandPacket::CopyFrom(const CommandPacket& from) {
 
 bool CommandPacket::IsInitialized() const {
 
-  if (has_command()) {
-    if (!this->command().IsInitialized()) return false;
-  }
   if (has_controller_config()) {
     if (!this->controller_config().IsInitialized()) return false;
   }
@@ -2580,12 +3999,17 @@ void CommandPacket::Swap(CommandPacket* other) {
     std::swap(sensors_config_, other->sensors_config_);
     std::swap(motors_config_, other->motors_config_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CommandPacket::GetTypeName() const {
-  return "org.hummingdroid.CommandPacket";
+::google::protobuf::Metadata CommandPacket::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommandPacket_descriptor_;
+  metadata.reflection = CommandPacket_reflection_;
+  return metadata;
 }
 
 
@@ -2595,36 +4019,23 @@ void CommandPacket::Swap(CommandPacket* other) {
 const int TelemetryPacket::kCommandFieldNumber;
 const int TelemetryPacket::kAttitudeFieldNumber;
 const int TelemetryPacket::kControlFieldNumber;
+const int TelemetryPacket::kSwitchesFieldNumber;
 #endif  // !_MSC_VER
 
 TelemetryPacket::TelemetryPacket()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void TelemetryPacket::InitAsDefaultInstance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  command_ = const_cast< ::org::hummingdroid::Attitude*>(
-      ::org::hummingdroid::Attitude::internal_default_instance());
-#else
   command_ = const_cast< ::org::hummingdroid::Attitude*>(&::org::hummingdroid::Attitude::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  attitude_ = const_cast< ::org::hummingdroid::Attitude*>(
-      ::org::hummingdroid::Attitude::internal_default_instance());
-#else
   attitude_ = const_cast< ::org::hummingdroid::Attitude*>(&::org::hummingdroid::Attitude::default_instance());
-#endif
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  control_ = const_cast< ::org::hummingdroid::MotorsControl*>(
-      ::org::hummingdroid::MotorsControl::internal_default_instance());
-#else
   control_ = const_cast< ::org::hummingdroid::MotorsControl*>(&::org::hummingdroid::MotorsControl::default_instance());
-#endif
+  switches_ = const_cast< ::org::hummingdroid::Switches*>(&::org::hummingdroid::Switches::default_instance());
 }
 
 TelemetryPacket::TelemetryPacket(const TelemetryPacket& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2634,6 +4045,7 @@ void TelemetryPacket::SharedCtor() {
   command_ = NULL;
   attitude_ = NULL;
   control_ = NULL;
+  switches_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2642,14 +4054,11 @@ TelemetryPacket::~TelemetryPacket() {
 }
 
 void TelemetryPacket::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
   if (this != default_instance_) {
-  #endif
     delete command_;
     delete attitude_;
     delete control_;
+    delete switches_;
   }
 }
 
@@ -2658,12 +4067,13 @@ void TelemetryPacket::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* TelemetryPacket::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return TelemetryPacket_descriptor_;
+}
+
 const TelemetryPacket& TelemetryPacket::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Communication_2eproto();
-#else
   if (default_instance_ == NULL) protobuf_AddDesc_Communication_2eproto();
-#endif
   return *default_instance_;
 }
 
@@ -2684,8 +4094,12 @@ void TelemetryPacket::Clear() {
     if (has_control()) {
       if (control_ != NULL) control_->::org::hummingdroid::MotorsControl::Clear();
     }
+    if (has_switches()) {
+      if (switches_ != NULL) switches_->::org::hummingdroid::Switches::Clear();
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool TelemetryPacket::MergePartialFromCodedStream(
@@ -2731,6 +4145,20 @@ bool TelemetryPacket::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(34)) goto parse_switches;
+        break;
+      }
+
+      // optional .org.hummingdroid.Switches switches = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_switches:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_switches()));
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -2741,7 +4169,8 @@ bool TelemetryPacket::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -2754,22 +4183,69 @@ void TelemetryPacket::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // optional .org.hummingdroid.Attitude command = 1;
   if (has_command()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->command(), output);
   }
 
   // optional .org.hummingdroid.Attitude attitude = 2;
   if (has_attitude()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->attitude(), output);
   }
 
   // optional .org.hummingdroid.MotorsControl control = 3;
   if (has_control()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->control(), output);
   }
 
+  // optional .org.hummingdroid.Switches switches = 4;
+  if (has_switches()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->switches(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* TelemetryPacket::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional .org.hummingdroid.Attitude command = 1;
+  if (has_command()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->command(), target);
+  }
+
+  // optional .org.hummingdroid.Attitude attitude = 2;
+  if (has_attitude()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->attitude(), target);
+  }
+
+  // optional .org.hummingdroid.MotorsControl control = 3;
+  if (has_control()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->control(), target);
+  }
+
+  // optional .org.hummingdroid.Switches switches = 4;
+  if (has_switches()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->switches(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int TelemetryPacket::ByteSize() const {
@@ -2797,6 +4273,18 @@ int TelemetryPacket::ByteSize() const {
           this->control());
     }
 
+    // optional .org.hummingdroid.Switches switches = 4;
+    if (has_switches()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->switches());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -2804,9 +4292,16 @@ int TelemetryPacket::ByteSize() const {
   return total_size;
 }
 
-void TelemetryPacket::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const TelemetryPacket*>(&from));
+void TelemetryPacket::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const TelemetryPacket* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const TelemetryPacket*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void TelemetryPacket::MergeFrom(const TelemetryPacket& from) {
@@ -2821,7 +4316,17 @@ void TelemetryPacket::MergeFrom(const TelemetryPacket& from) {
     if (from.has_control()) {
       mutable_control()->::org::hummingdroid::MotorsControl::MergeFrom(from.control());
     }
+    if (from.has_switches()) {
+      mutable_switches()->::org::hummingdroid::Switches::MergeFrom(from.switches());
+    }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void TelemetryPacket::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void TelemetryPacket::CopyFrom(const TelemetryPacket& from) {
@@ -2832,14 +4337,11 @@ void TelemetryPacket::CopyFrom(const TelemetryPacket& from) {
 
 bool TelemetryPacket::IsInitialized() const {
 
-  if (has_command()) {
-    if (!this->command().IsInitialized()) return false;
-  }
-  if (has_attitude()) {
-    if (!this->attitude().IsInitialized()) return false;
-  }
   if (has_control()) {
     if (!this->control().IsInitialized()) return false;
+  }
+  if (has_switches()) {
+    if (!this->switches().IsInitialized()) return false;
   }
   return true;
 }
@@ -2849,13 +4351,19 @@ void TelemetryPacket::Swap(TelemetryPacket* other) {
     std::swap(command_, other->command_);
     std::swap(attitude_, other->attitude_);
     std::swap(control_, other->control_);
+    std::swap(switches_, other->switches_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string TelemetryPacket::GetTypeName() const {
-  return "org.hummingdroid.TelemetryPacket";
+::google::protobuf::Metadata TelemetryPacket::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = TelemetryPacket_descriptor_;
+  metadata.reflection = TelemetryPacket_reflection_;
+  return metadata;
 }
 
 

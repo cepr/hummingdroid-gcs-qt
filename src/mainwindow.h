@@ -9,6 +9,8 @@
 #include <QFile>
 #include "Communication.pb.h"
 #include "qjoystick.h"
+#include "midimixer.h"
+
 using namespace org::hummingdroid;
 
 namespace Ui {
@@ -34,6 +36,7 @@ private:
     QHostAddress birdAddress;
     QLocale locale;
     QJoystick joystick;
+    MidiMixer midi_mixer;
 
     // Command packet
     CommandPacket command;
@@ -67,8 +70,10 @@ public slots:
     void restoreConfig();
     void saveConfig();
     void onTabChanged(int tab);
-    void onCalibrateGyro();
+    void onCalibrateGyroBias();
+    void onCalibrateGyroGain();
     void onCalibrateAccel();
+    void setSliderValue(int index, float value);
 };
 
 #endif // MAINWINDOW_H

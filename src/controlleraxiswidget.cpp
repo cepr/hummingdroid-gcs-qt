@@ -14,7 +14,7 @@ ControllerAxisWidget::ControllerAxisWidget(QWidget *parent) :
     ui->setupUi(this);
     ui->plot_area->series.append(PlotSerie(ui->plot_area, "Target", QColor(0, 0, 255), PlotSerie::LINE));
     ui->plot_area->series.append(PlotSerie(ui->plot_area, "Sensor", QColor(0, 0, 0), PlotSerie::DOTS));
-    ui->plot_area->series.append(PlotSerie(ui->plot_area, "Motor", QColor(255, 0, 0), PlotSerie::LINE));
+    ui->plot_area->series.append(PlotSerie(ui->plot_area, "Motor", QColor(255, 0, 0), PlotSerie::DOTS));
     connect(ui->pause, SIGNAL(clicked(bool)), this, SLOT(pause(bool)));
 }
 

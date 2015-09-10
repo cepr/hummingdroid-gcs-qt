@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     qjoystick.cpp \
     controlleraxiswidget.cpp \
     plotwidget.cpp \
-    plotserie.cpp
+    plotserie.cpp \
+    midimixer.cpp
 
 HEADERS  += mainwindow.h \
     Communication.pb.h \
     qjoystick.h \
     controlleraxiswidget.h \
     plotwidget.h \
-    plotserie.h
+    plotserie.h \
+    midimixer.h
 
 FORMS    += mainwindow.ui \
     controlleraxiswidget.ui
@@ -34,7 +36,7 @@ OTHER_FILES += \
     Communication.proto
 
 CONFIG += link_pkgconfig
-PKGCONFIG += protobuf-lite
+PKGCONFIG += protobuf
 
 RESOURCES += \
     resources.qrc

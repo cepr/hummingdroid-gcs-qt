@@ -25,16 +25,21 @@
 // For C++
 // protoc --cpp_out=. Communication.proto
 
-option optimize_for = LITE_RUNTIME;
+// option optimize_for = LITE_RUNTIME;
+
+syntax = "proto2";
 
 package org.hummingdroid;
 
 message Attitude {
-    required float altitude = 1; // Altitude from ground in meters
-    required float roll = 2; // Roll in radians
-    required float pitch = 3; // Pitch in radians
-    required float yaw_rate = 4; // Yaw rate in radians/second
-    optional double timestamp = 5; // Timestamp in seconds
+    optional float altitude = 1; // Altitude from ground in meters
+    optional float roll = 2; // Roll in radians
+    optional float roll_rate = 3; // Roll rate in radians/sec
+    optional float pitch = 4; // Pitch in radians
+    optional float pitch_rate = 5; // Pitch rate in radians
+    optional float yaw = 6; // Yaw
+    optional float yaw_rate = 7; // Yaw rate in radians/second
+    optional double timestamp = 8; // Timestamp in seconds
 }
 
 message MotorsControl {
@@ -51,6 +56,13 @@ message PID {
     required float Kd = 3; // derivative factor
     required float Ko = 4; // offset
     required float Td = 5; // derivative low-pass time constant
+}
+
+message Switches {
+    required bool front_left = 1; // true if the front left switch is closed
+    required bool front_right = 2; // true if the front right switch is closed
+    required bool back_right = 3; // true if the back right switch is closed
+    required bool back_left = 4; // true if the back left switch is closed
 }
 
 // Command packet sent from ground to air.
@@ -72,6 +84,7 @@ message CommandPacket {
         required bool commandEnabled = 3;
         required bool attitudeEnabled = 4;
         required bool controlEnabled = 5;
+        required bool switchesEnabled = 6;
     }
 
     message SensorsConfig {
@@ -79,8 +92,12 @@ message CommandPacket {
         required float gyro_roll_bias = 2;
         required float gyro_pitch_bias = 3;
         required float gyro_yaw_bias = 4;
-        required float accel_roll_bias = 5;
-        required float accel_pitch_bias = 6;
+        required float gyro_roll_gain = 5;
+        required float gyro_pitch_gain = 6;
+        required float gyro_yaw_gain = 7;
+        required float accel_roll_bias = 8;
+        required float accel_pitch_bias = 9;
+        required bool apply_modulo = 10;
     }
 
     message MotorsConfig {
@@ -100,4 +117,5 @@ message TelemetryPacket {
     optional Attitude       command = 1;
     optional Attitude       attitude = 2;
     optional MotorsControl  control = 3;
+    optional Switches       switches = 4;
 }
