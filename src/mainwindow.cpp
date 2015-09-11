@@ -221,8 +221,8 @@ void MainWindow::sendConfig()
 
         // Motors settings
         CommandPacket::MotorsConfig *mc = config.mutable_motors_config();
-        mc->set_min_pwm(ui->min_pwm->text().toInt());
-        mc->set_max_pwm(ui->max_pwm->text().toInt());
+        mc->set_min_pwm(ui->min_pwm->text().toFloat());
+        mc->set_max_pwm(ui->max_pwm->text().toFloat());
 
         int size = config.ByteSize();
         char buffer[size];

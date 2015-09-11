@@ -1068,19 +1068,19 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 min_pwm = 1;
+  // required float min_pwm = 1;
   inline bool has_min_pwm() const;
   inline void clear_min_pwm();
   static const int kMinPwmFieldNumber = 1;
-  inline ::google::protobuf::int32 min_pwm() const;
-  inline void set_min_pwm(::google::protobuf::int32 value);
+  inline float min_pwm() const;
+  inline void set_min_pwm(float value);
 
-  // required int32 max_pwm = 2;
+  // required float max_pwm = 2;
   inline bool has_max_pwm() const;
   inline void clear_max_pwm();
   static const int kMaxPwmFieldNumber = 2;
-  inline ::google::protobuf::int32 max_pwm() const;
-  inline void set_max_pwm(::google::protobuf::int32 value);
+  inline float max_pwm() const;
+  inline void set_max_pwm(float value);
 
   // @@protoc_insertion_point(class_scope:org.hummingdroid.CommandPacket.MotorsConfig)
  private:
@@ -1091,8 +1091,8 @@ class CommandPacket_MotorsConfig : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::google::protobuf::int32 min_pwm_;
-  ::google::protobuf::int32 max_pwm_;
+  float min_pwm_;
+  float max_pwm_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
@@ -2498,7 +2498,7 @@ inline void CommandPacket_SensorsConfig::set_apply_modulo(bool value) {
 
 // CommandPacket_MotorsConfig
 
-// required int32 min_pwm = 1;
+// required float min_pwm = 1;
 inline bool CommandPacket_MotorsConfig::has_min_pwm() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -2512,15 +2512,15 @@ inline void CommandPacket_MotorsConfig::clear_min_pwm() {
   min_pwm_ = 0;
   clear_has_min_pwm();
 }
-inline ::google::protobuf::int32 CommandPacket_MotorsConfig::min_pwm() const {
+inline float CommandPacket_MotorsConfig::min_pwm() const {
   return min_pwm_;
 }
-inline void CommandPacket_MotorsConfig::set_min_pwm(::google::protobuf::int32 value) {
+inline void CommandPacket_MotorsConfig::set_min_pwm(float value) {
   set_has_min_pwm();
   min_pwm_ = value;
 }
 
-// required int32 max_pwm = 2;
+// required float max_pwm = 2;
 inline bool CommandPacket_MotorsConfig::has_max_pwm() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -2534,10 +2534,10 @@ inline void CommandPacket_MotorsConfig::clear_max_pwm() {
   max_pwm_ = 0;
   clear_has_max_pwm();
 }
-inline ::google::protobuf::int32 CommandPacket_MotorsConfig::max_pwm() const {
+inline float CommandPacket_MotorsConfig::max_pwm() const {
   return max_pwm_;
 }
-inline void CommandPacket_MotorsConfig::set_max_pwm(::google::protobuf::int32 value) {
+inline void CommandPacket_MotorsConfig::set_max_pwm(float value) {
   set_has_max_pwm();
   max_pwm_ = value;
 }

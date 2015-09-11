@@ -361,8 +361,8 @@ void protobuf_AddDesc_Communication_2eproto() {
     "itch_gain\030\006 \002(\002\022\025\n\rgyro_yaw_gain\030\007 \002(\002\022\027"
     "\n\017accel_roll_bias\030\010 \002(\002\022\030\n\020accel_pitch_b"
     "ias\030\t \002(\002\022\024\n\014apply_modulo\030\n \002(\010\0320\n\014Motor"
-    "sConfig\022\017\n\007min_pwm\030\001 \002(\005\022\017\n\007max_pwm\030\002 \002("
-    "\005\"\314\001\n\017TelemetryPacket\022+\n\007command\030\001 \001(\0132\032"
+    "sConfig\022\017\n\007min_pwm\030\001 \002(\002\022\017\n\007max_pwm\030\002 \002("
+    "\002\"\314\001\n\017TelemetryPacket\022+\n\007command\030\001 \001(\0132\032"
     ".org.hummingdroid.Attitude\022,\n\010attitude\030\002"
     " \001(\0132\032.org.hummingdroid.Attitude\0220\n\007cont"
     "rol\030\003 \001(\0132\037.org.hummingdroid.MotorsContr"
@@ -3432,28 +3432,28 @@ bool CommandPacket_MotorsConfig::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 min_pwm = 1;
+      // required float min_pwm = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &min_pwm_)));
           set_has_min_pwm();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(16)) goto parse_max_pwm;
+        if (input->ExpectTag(21)) goto parse_max_pwm;
         break;
       }
 
-      // required int32 max_pwm = 2;
+      // required float max_pwm = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_max_pwm:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &max_pwm_)));
           set_has_max_pwm();
         } else {
@@ -3481,14 +3481,14 @@ bool CommandPacket_MotorsConfig::MergePartialFromCodedStream(
 
 void CommandPacket_MotorsConfig::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required int32 min_pwm = 1;
+  // required float min_pwm = 1;
   if (has_min_pwm()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->min_pwm(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->min_pwm(), output);
   }
 
-  // required int32 max_pwm = 2;
+  // required float max_pwm = 2;
   if (has_max_pwm()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->max_pwm(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->max_pwm(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -3499,14 +3499,14 @@ void CommandPacket_MotorsConfig::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* CommandPacket_MotorsConfig::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required int32 min_pwm = 1;
+  // required float min_pwm = 1;
   if (has_min_pwm()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->min_pwm(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->min_pwm(), target);
   }
 
-  // required int32 max_pwm = 2;
+  // required float max_pwm = 2;
   if (has_max_pwm()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->max_pwm(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->max_pwm(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -3520,18 +3520,14 @@ int CommandPacket_MotorsConfig::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int32 min_pwm = 1;
+    // required float min_pwm = 1;
     if (has_min_pwm()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->min_pwm());
+      total_size += 1 + 4;
     }
 
-    // required int32 max_pwm = 2;
+    // required float max_pwm = 2;
     if (has_max_pwm()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->max_pwm());
+      total_size += 1 + 4;
     }
 
   }

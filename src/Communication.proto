@@ -101,8 +101,8 @@ message CommandPacket {
     }
 
     message MotorsConfig {
-        required int32 min_pwm = 1;
-        required int32 max_pwm = 2;
+        required float min_pwm = 1;
+        required float max_pwm = 2;
     }
 
     optional Attitude           command = 1;
